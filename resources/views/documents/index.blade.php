@@ -29,7 +29,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-6">                    
+                  <div class="col-md-6">
                     <h3 class="card-title">Liste</h3>
                   </div>
                   <div class="col-md-6" style="text-align: right;">
@@ -61,9 +61,9 @@
                         <tr>
                           <td> {{ $t+=1 }} </td>
                           <td> {{ $item->nom }} </td>
-                          <td><span class="badge bg-warning"> {{ $item->services->nom }} </span></td>
-                          <td><span class="badge bg-success"> {{ $item->types->libelle }} </span></td>
-                          <td><span class="badge bg-danger"> {{ $item->status->libelle }} </span></td>
+                          <td><span class="badge bg-warning"> {{ $item->service->nom }} </span></td>
+                          <td><span class="badge bg-success"> {{ $item->type->libelle }} </span></td>
+                          <td><span class="badge bg-danger"> {{ $item->statu->libelle }} </span></td>
                           <td>
                              <a href="{{ route('documents.edit', $item->id) }}" class="btn btn-primary" title="Modifier"><i class="nav-icon fas fa-edit"></i></a>
                           </td>
@@ -71,7 +71,7 @@
                             <a href="{{ route('documents.show', $item->id) }}" class="btn btn-success" title="Details"><i class="nav-icon fas fa-eye"></i></a>
                           </td>
                           <td>
-                          <form method="post" action="{{ route('documents.destroy', $item->id) }}" 
+                          <form method="post" action="{{ route('documents.destroy', $item->id) }}"
                           onsubmit="return confirm('Etre vous sure de vouloir Supprimer cet document ?') ">
                             {{ csrf_field() }}{{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-danger" title="Supprimer"><i class="nav-icon fas fa-trash"></i></button>

@@ -41,4 +41,4 @@ Merci de bien vouloir participer à la construction de l'application
 
 ## License
 
-L'application est sous la propriété de ## Yann ANZIAN.
+L'application est sous la propriété de Yann ANZIAN.

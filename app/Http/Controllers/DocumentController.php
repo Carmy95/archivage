@@ -47,15 +47,44 @@ class DocumentController extends Controller
      */
     public function store(DocumentRequest $request)
     {
-        // dd('ok');
         $data = new Document();
         $data->nom = $request->input('nom');
         $data->service_id = $request->input('service');
         $data->statu_id = $request->input('statu');
         $data->type_id = $request->input('type');
-        $data->doc = $request->input('document');
-        $data->save();
-        return redirect()->route('service.index');
+        if($request->hasfile('document')){
+            $file = $request->file('document');
+            $extension = $file->getClientOriginalExtension();
+            if ($request->input('type') == 1) {
+                $documents = ['pdf','txt','doc','docs','ppt','xlsx'];
+                if (in_array($extension,$documents)) {
+                    $filename = $file->store('archive', 'public');
+                }
+            } elseif ($request->input('type') == 2) {
+                $images =['jpg','jpeg','gif','png'];
+                if (in_array($extension,$images)) {
+                    $filename = $file->store('archive', 'public');
+                }
+            } elseif ($request->input('type') == 3) {
+                $medias = ['mp3','mp4','avi','mpg'];
+                if (in_array($extension,$medias)) {
+                    $filename = $file->store('archive', 'public');
+                }
+            } else{
+                $autres = ['zip','rar','7z','cab','iso'];
+                if (in_array($extension,$autres)) {
+                    $filename = $file->store('archive', 'public');
+                }
+            }
+            $cou = rand(1,9);
+            $couv = 'dist/img/bg-img/'.$cou.'jpg';
+            $data->couverture = $couv;
+            $data->doc = $filename;
+            $data->save();
+        }else {
+
+        }
+        return redirect()->route('documents.index');
     }
 
     /**
@@ -98,7 +127,7 @@ class DocumentController extends Controller
             'nom' => $request->input('nom'),
             'service_id' => $request->input('service'),
             ]);
-        return redirect()->route('documents.index'); 
+        return redirect()->route('documents.index');
     }
 
     /**

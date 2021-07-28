@@ -24,11 +24,27 @@ class DocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom' => 'require',
-            'service' => 'require',
-            'document' => 'require',
-            'statu' => 'require',
-            'type' => 'require',
+            'nom' => 'required',
+            'service' => 'required',
+            'document' => 'required',
+            'statu' => 'required',
+            'type' => 'required',
+        ];
+    }
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'nom.required' => 'L\' intitulé du document est obligatoire pour continuer...',
+            'service.required' => 'Vous devez obligatoirement selectionner le service au quel le document provient...',
+            'document.required' => 'Vous devez obligatoirement selectionner le document...',
+            'statu.required' => 'Vous devez obligatoirement selectionner le statut du document...',
+            'type.required' => 'Vous devez obligatoirement selectionner le type du document...',
+
         ];
     }
 }

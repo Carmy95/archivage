@@ -24,8 +24,8 @@ class ServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom' => 'require',
-            'departement' => 'require',
+            'nom' => 'required',
+            'departement' => 'required',
         ];
     }
 
@@ -37,8 +37,8 @@ class ServiceRequest extends FormRequest
     public function messages()
     {
         return [
-            'nom.require' => 'L\' intitulé du document est obligatoire pour continuer...',
-            'departement.require' => 'Vous devez obligatoirement selectionner le departement au quel le document provient...',
+            'nom.required' => 'Le nom du service est obligatoire pour continuer...',
+            'departement.required' => 'Vous devez obligatoirement selectionner le departement au quel le document provient...',
         ];
     }
 }
