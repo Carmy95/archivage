@@ -35,6 +35,7 @@ Route::resource('types', TypeController::class);
 
 
 Route::get('/archives',[homeController::class, 'create'])->name('clients.create');
+Route::post('/archives',[DocumentController::class, 'clientstore'])->name('clients.store');
 Route::get('/docservices',[homeController::class, 'services'])->name('clients.service');
 Route::get('/docdepartements',[homeController::class, 'departement'])->name('clients.departement');
 // Route::get('/',[homeController::class, ''])->name('clients.form');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\StatuController;
 use App\Http\Controllers\TypeController;
+use App\Models\Statu;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class homeController extends Controller
@@ -34,7 +36,8 @@ class homeController extends Controller
     {
         $active = 'archive';
         // return view('acceuil',compact('active'));
-        return view('clients.form',compact('active'));
+        $type = Type::all();$statu = Statu::all();
+        return view('clients.form',compact('active','type','statu'));
     }
     public function services()
     {

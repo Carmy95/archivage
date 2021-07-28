@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')  
+@section('content')
  <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
@@ -37,35 +37,54 @@
                   <input type="hidden" name="_method" value="PUT">
                     <label for="nom">Intituler du document</label>
                     <input type="text" value=" {{ $data->nom }} " class="form-control {{ $errors->first('nom','is-invalid')}} " name="nom" id="nom" placeholder="Enter le nom du département">
+                    <input type="hidden" name="document" value="{{ $data->doc }}"><input type="hidden" name="type" value="{{ $data->type_id }}">
                     {!! $errors->first('nom', '<span style="color: red">:message</span>') !!}
+                  </div>
+                  <div class="form-group">
+                    <label for="commentaire">Aprops du document</label>
+                    <textarea class="form-control" name="commentaire" id="commentaire" cols="30" rows="10"> {{ $data->commentaire }} </textarea>
                   </div>
                   <div class="form-group">
                     <label for="service">Service</label>
                     <select class="form-control" name="service" id="service">
                      @if($done->isEmpty())
                        <option>Aucune donnée disponible pour l'instant.</option>
-                     @else                     
+                     @else
                       <option value="">Selectionner un Service</option>
                        @foreach($done as $item)
                         <option {{ $item->id == $data->service_id ? 'selected' : '' }} value=" {{$item->id}}"> {{$item->nom}}</option>
                       @endforeach
-                     @endif                     
+                     @endif
                     </select>
                     {!! $errors->first('service', '<span style="color: red">:message</span>') !!}
-                  </div> 
-                </div>  
+                  </div>
+                  <div class="form-group">
+                    <label for="statu">Statut</label>
+                    <select class="form-control" name="statu" id="service">
+                     @if($statu->isEmpty())
+                       <option>Aucune donnée disponible pour l'instant.</option>
+                     @else
+                      <option value="">Selectionner le statut du document</option>
+                       @foreach($statu as $item)
+                        <option {{ $item->id == $data->statu_id ? 'selected' : '' }} value=" {{$item->id}}"> {{$item->libelle}}</option>
+                      @endforeach
+                     @endif
+                    </select>
+                    {!! $errors->first('statu', '<span style="color: red">:message</span>') !!}
+                  </div>
+                </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                 	<div class="row">
                 		<div class="col-md-6" style="text-align: right;">
-                  			<button type="submit" class="btn btn-primary">Modifier</button> 
+                  			<button type="submit" class="btn btn-primary">Modifier</button>
                 		</div>
                 		<div class="col-md-6" style="text-align: left;">
                 			<a href=" {{route('documents.index')}} " class="btn btn-danger">Annuler</a>
                 		</div>
                 	</div>
-                </div>                
+                </div>
               </form>
             </div>
             <!-- /.card -->
