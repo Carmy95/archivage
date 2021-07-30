@@ -48,6 +48,14 @@ class DocumentController extends Controller
     public function store(DocumentRequest $request)
     {
         $data = new Document();
+        $ref = Service::findOrFail($request->input('service'));
+        $compte = Document::all()->count();
+        $compte = $compte + 1;
+        $an = date('Y'); $jour = date('md');
+        $dep = strtoupper(substr($ref->departement->nom,0,2));
+        $ser = strtoupper(substr($ref->nom,0,2));
+        $ref = $an.''.$dep.''.$jour.''.$ser.''.$compte;
+        $data->reference = $ref;
         $data->nom = $request->input('nom');
         $data->service_id = $request->input('service');
         $data->statu_id = $request->input('statu');
@@ -152,6 +160,14 @@ class DocumentController extends Controller
     {
         $service = 1;
         $data = new Document();
+        $ref = Service::findOrFail($service);
+        $compte = Document::all()->count();
+        $compte = $compte + 1;
+        $an = date('Y'); $jour = date('md');
+        $dep = strtoupper(substr($ref->departement->nom,0,2));
+        $ser = strtoupper(substr($ref->nom,0,2));
+        $ref = $an.''.$dep.''.$jour.''.$ser.''.$compte;
+        $data->reference = $ref;
         $data->nom = $request->input('nom');
         $data->service_id = $service;
         $data->statu_id = $request->input('statu');
