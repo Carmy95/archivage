@@ -12,11 +12,11 @@ class TypeController extends Controller
     {
         $data = Type::all();
         if ($data->isEmpty()) {
-            $tab = ['Image','document PDF','Document Word','Autre Type'];
+            $tab = ['Documents','Images','Media','Autre'];
             foreach ($tab as $value) {
                 $new = new Type();
                 $new->libelle = $value;
-                $new->save();                
+                $new->save();
             }
         }
     }
@@ -94,7 +94,7 @@ class TypeController extends Controller
         $data->update([
             'libelle' => $request->input('nom')
             ]);
-        return redirect()->route('types.index');  
+        return redirect()->route('types.index');
     }
 
     /**

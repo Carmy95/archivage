@@ -14,69 +14,37 @@
 	                    <table class="table table-bordered table-hover">
 	                        <thead>
 	                            <tr>
-	                                <th>#</th>
-	                                <th>Intitulé du document</th>
+	                                <th style="margin: 0%">#</th>
+	                                <th>Réference</th>
 	                                <th>date d'archivage</th>
 	                                <th>Action</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-	                            <tr>
-	                                <td class="cart_product_img">
-	                                    <a href="#"><img src="img/bg-img/cart1.jpg" alt="Product"></a>
-	                                </td>
-	                                <td class="cart_product_desc">
-	                                    <h5>White Modern Chair</h5>
-	                                </td>
-	                                <td class="price">
-	                                    <span>$130</span>
-	                                </td>
-	                                <td class="price">
-	                                    <button class="btn btn-success">voir</button>
-	                                </td>
-	                            </tr>
-	                            <tr>
-	                                <td class="cart_product_img">
-	                                    <a href="#"><img src="img/bg-img/cart1.jpg" alt="Product"></a>
-	                                </td>
-	                                <td class="cart_product_desc">
-	                                    <h5>White Modern Chair</h5>
-	                                </td>
-	                                <td class="price">
-	                                    <span>$130</span>
-	                                </td>
-	                                <td class="price">
-	                                    <button class="btn btn-success">voir</button>
-	                                </td>
-	                            </tr>
-	                            <tr>
-	                                <td class="cart_product_img">
-	                                    <a href="#"><img src="img/bg-img/cart1.jpg" alt="Product"></a>
-	                                </td>
-	                                <td class="cart_product_desc">
-	                                    <h5>White Modern Chair</h5>
-	                                </td>
-	                                <td class="price">
-	                                    <span>$130</span>
-	                                </td>
-	                                <td class="price">
-	                                    <button class="btn btn-success">voir</button>
-	                                </td>
-	                            </tr>
-	                            <tr>
-	                                <td class="cart_product_img">
-	                                    <a href="#"><img src="img/bg-img/cart1.jpg" alt="Product"></a>
-	                                </td>
-	                                <td class="cart_product_desc">
-	                                    <h5>White Modern Chair</h5>
-	                                </td>
-	                                <td class="price">
-	                                    <span>$130</span>
-	                                </td>
-	                                <td class="price">
-	                                    <button class="btn amado-btn">voir</button>
-	                                </td>
-	                            </tr>
+                                @if($documents->isEmpty())
+                                    <tr>
+                                        <td colspan="4">Aucun document archivés pour votre service</td>
+                                    </tr>
+                                @else
+                                    @php $t = 0; @endphp
+                                    @foreach ($documents as $value)
+                                    <tr>
+                                        <td>
+                                            {{ $t = $t + 1 }}
+                                        </td>
+                                        <td>
+                                            <h5>{{ $value->reference }}</h5>
+                                        </td>
+
+                                        <td>
+                                            <h5>{{ $value->created_at }}</h5>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('clients.show',$value->id) }}" class="btn amado-btn">voir</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
 	                        </tbody>
 	                    </table>
 	                </div>

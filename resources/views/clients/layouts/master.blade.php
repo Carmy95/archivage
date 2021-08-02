@@ -78,7 +78,7 @@
                         <div class="footer-logo mr-50">
                             <a href=" {{route('home')}} "><img src="{{asset('dist/img/core-img/logo2.png')}}" alt=""></a>
 
-                        <p class="copywrite"> Copyright &copy; {{ date('Y')}}  Tout droit réserver | Réalisé Par <a href="#" target="_blank">Aicha Konaté</a> | Version 0.1 
+                        <p class="copywrite"> Copyright &copy; {{ date('Y')}}  Tout droit réserver | Réalisé Par <a href="#" target="_blank">Aicha Konaté</a> | Version 0.1
                         </p>
                         </div>
                         <!-- Copywrite Text -->
@@ -93,20 +93,26 @@
                                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
-                                        <li class="nav-item active">
-                                            <a class="nav-link" href="index.html">Home</a>
+                                        <li class=" nav-item active"></li>
+                                        <li class=" nav-item active"></li>
+                                        <li class=" nav-item active"></li>
+                                        <li class=" nav-item active"></li>
+                                        <li class=" nav-item active"></li>
+
+                                        <li class="nav-item {{ $active == 'home' ? 'active' : '' }}">
+                                            <a class="nav-link" href="{{route('home')}} ">Accueil</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="shop.html">Shop</a>
+                                        <li class="nav-item {{ $active == 'archive' ? 'active' : '' }}">
+                                            <a class="nav-link" href="{{route('clients.create')}}">Archiver un docunent</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="product-details.html">Product</a>
+                                        <li class="nav-item {{ $active == 'service' ? 'active' : '' }}">
+                                            <a class="nav-link" href="{{route('clients.service')}}">Les Documents du Services</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="cart.html">Cart</a>
+                                        <li class="nav-item {{ $active == 'departement' ? 'active' : '' }}">
+                                            <a class="nav-link" href="{{route('clients.departement')}}">Les Documents du Departements</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="checkout.html">Checkout</a>
+                                        <li class="nav-item {{ $active == 'connexion' ? 'active' : '' }}">
+                                            <a class="nav-link" href="{{ route('clients.show','1') }}">Se Connecter</a>
                                         </li>
                                     </ul>
                                 </div>

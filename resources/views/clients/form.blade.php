@@ -57,10 +57,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6" style="text-align: right;">
-                                  <button type="submit" class="btn btn-warning">Enregistrer</button>
+                                  <button type="submit" class="btn amado-btn">Enregistrer</button>
                             </div>
                             <div class="col-md-6" style="text-align: left;">
-                                <a href=" {{route('home')}} " class="btn btn-danger">Annuler</a>
+                                <a href=" {{route('home')}} " class="btn amado-btn">Annuler</a>
                             </div>
                         </div>
                     </form>

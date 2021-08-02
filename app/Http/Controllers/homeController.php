@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\StatuController;
 use App\Http\Controllers\TypeController;
+use App\Models\Departement;
+use App\Models\Document;
 use App\Models\Statu;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -41,15 +43,20 @@ class homeController extends Controller
     }
     public function services()
     {
+        $service = 1;
         $active = 'service';
+        $documents = Document::where('service_id',$service)->get();
         // return view('acceuil',compact('active'));
-        return view('clients.service',compact('active'));
+        return view('clients.service',compact('active','documents'));
     }
     public function departement()
     {
         $active = 'departement';
-        // return view('acceuil',compact('active'));
-        return view('clients.departement',compact('active'));
+        $departement = 1;
+        $documents = Departement::with('service.document')->where('id',$departement)->get()->toArray();
+        // Document::where('service_id',$service)->get();
+        // dd($documents);
+        return view('clients.departement',compact('active','documents'));
     }
 
     /**
@@ -71,7 +78,17 @@ class homeController extends Controller
      */
     public function show($id)
     {
-        //
+        // dd('un teste');
+        $active = 'documents';
+        $data = Document::findOrFail($id);
+        return view('clients.show',compact('active','data'));
+    }
+    public function departshow($id)
+    {
+        // dd('un teste');
+        $active = 'documents';
+        $data = Document::findOrFail($id);
+        return view('clients.showd',compact('active','data'));
     }
 
     /**
