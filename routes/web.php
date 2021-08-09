@@ -41,6 +41,9 @@ Route::get('/docservices',[homeController::class, 'services'])->name('clients.se
 Route::get('/docshow/{id} ',[homeController::class, 'show'])->name('clients.show');
 Route::get('/departeshow/{id} ',[homeController::class, 'departshow'])->name('clients.departe.show');
 Route::get('/docdepartements',[homeController::class, 'departement'])->name('clients.departement');
+//telechargement du document
+Route::get('/download/{id} ',[DocumentController::class, 'download'])->name('download');
+
 // Route::get('/',[homeController::class, ''])->name('clients.form');
 // Route::get('/',[homeController::class, ''])->name('clients.form');
 // Route::get('/',[homeController::class, ''])->name('clients.form');

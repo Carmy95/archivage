@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Statu;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class homeController extends Controller
 {
@@ -59,7 +60,7 @@ class homeController extends Controller
         $service = 1;
         $active = 'service';
         // $documents = Document::paginate(1)->get();
-        $documents = Document::where('service_id',$service)->paginate(1);
+        $documents = Document::where('service_id',$service)->paginate(5);
         // dd($documents);
         // return view('acceuil',compact('active'));
         return view('clients.service',compact('active','documents'));

@@ -236,4 +236,10 @@ class DocumentController extends Controller
         }
         return redirect()->route('home');
     }
+
+    public function download($id)
+    {
+        $data = Document::findOrFail($id);
+        return response()->download(public_path('storage/'.$data->doc));
+    }
 }

@@ -49,7 +49,7 @@
                             <div class="short_overview my-5">
                             <p>
                             <div class="short_overview my-5">
-                                <p><a href="#" class="btn amado-btn">Télécharger</a> <a href="{{ route('clients.service') }}" class="btn amado-btn">Retour</a></p>
+                                <p><a href="{{ route('download',$data->id) }}" class="btn amado-btn">Télécharger</a> <a href="{{ route('clients.service') }}" class="btn amado-btn">Retour</a></p>
                             </div>
                             <div class="short_overview my-5">
                             </div>

@@ -52,7 +52,7 @@
                               <td>Aprops du document : <br>{{ $data->commentaire }} </td>
                             </tr>
                             <tr>
-                              <td colspan="2"> <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-download-alt"></i> Telecharger</a> </td>
+                              <td colspan="2"> <a href="{{ route('download',$data->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-download-alt"></i> Telecharger</a> </td>
                             </tr>
                         </tbody>
                       </table>
