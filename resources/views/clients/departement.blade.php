@@ -8,7 +8,7 @@
             <div class="col-12 col-lg-12">
                 <div class="mt-50">
                     <div class="cart-title">
-                        <h2>Liste des documents du Service</h2>
+                        <h2>Liste des documents du Département</h2>
                     </div>
 	                <div style="text-align: center;">
 	                    <table class="table table-bordered table-hover">

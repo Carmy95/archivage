@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')  
+@section('content')
  <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
@@ -9,7 +9,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href=" {{route('home')}} ">Acceuil</a></li>
+              <li class="breadcrumb-item"><a href=" {{route('dashboard')}} ">Acceuil</a></li>
               <li class="breadcrumb-item"><a href=" {{route('departements.index')}} ">Départements</a></li>
               <li class="breadcrumb-item active">Modifier</li>
             </ol>
@@ -45,13 +45,13 @@
                 <div class="card-footer">
                   <div class="row">
                     <div class="col-md-6" style="text-align: right;">
-                        <input type="submit" class="btn btn-primary" value="Modifier"> 
+                        <input type="submit" class="btn btn-primary" value="Modifier">
                     </div>
                     <div class="col-md-6" style="text-align: left;">
                       <a href=" {{route('departements.index')}} " class="btn btn-danger">Annuler</a>
                     </div>
                   </div>
-                </div>                
+                </div>
               </form>
             </div>
             <!-- /.card -->

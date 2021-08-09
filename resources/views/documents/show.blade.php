@@ -11,7 +11,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href=" {{route('home')}} ">Acceuil</a></li>
+              <li class="breadcrumb-item"><a href=" {{route('dashboard')}} ">Acceuil</a></li>
               <li class="breadcrumb-item"><a href=" {{route('documents.index')}} ">Documents</a></li>
               <li class="breadcrumb-item active">Details</li>
             </ol>

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')  
+@section('content')
  <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
@@ -9,7 +9,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href=" {{route('home')}} ">Acceuil</a></li>
+              <li class="breadcrumb-item"><a href=" {{route('dashboard')}} ">Acceuil</a></li>
               <li class="breadcrumb-item"><a href=" {{route('services.index')}} ">Services</a></li>
               <li class="breadcrumb-item active">Ajouter</li>
             </ol>
@@ -43,28 +43,28 @@
                     <select class="form-control" name="departement" id="departement">
                      @if($data->isEmpty())
                        <option>Aucune donnée disponible pour l'instant.</option>
-                     @else                     
+                     @else
                       <option value="">Selectionner un Département</option>
                        @foreach($data as $item)
                         <option value=" {{$item->id}}"> {{$item->nom}}</option>
                       @endforeach
-                     @endif                     
+                     @endif
                     </select>
                     {!! $errors->first('departement', '<span style="color: red">:message</span>') !!}
-                  </div>    
+                  </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                 	<div class="row">
                 		<div class="col-md-6" style="text-align: right;">
-                  			<button type="submit" class="btn btn-primary">Enregistrer</button> 
+                  			<button type="submit" class="btn btn-primary">Enregistrer</button>
                 		</div>
                 		<div class="col-md-6" style="text-align: left;">
                 			<a href=" {{route('services.index')}} " class="btn btn-danger">Annuler</a>
                 		</div>
                 	</div>
-                </div>                
+                </div>
               </form>
             </div>
             <!-- /.card -->

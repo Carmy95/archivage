@@ -17,7 +17,7 @@ class ServiceController extends Controller
     public function index()
     {
         $active = 'services';
-        $data = Service::all();
+        $data = Service::paginate(5);
         return view('services.index',compact('data','active'));
     }
 
@@ -72,7 +72,7 @@ class ServiceController extends Controller
         $active = 'services';
         $done = Departement::all();
         $data = Service::findOrFail($service->id);
-        return view('services.edit', compact('data','done','active'));    
+        return view('services.edit', compact('data','done','active'));
     }
 
     /**
@@ -84,12 +84,12 @@ class ServiceController extends Controller
      */
     public function update(ServiceRequest $request, Service $service)
     {
-        $data = Service::findOrFail($document->id);
+        $data = Service::findOrFail($service->id);
         $data->update([
             'nom' => $request->input('nom'),
             'departement_id' => $request->input('departement'),
             ]);
-        return redirect()->route('services.index'); 
+        return redirect()->route('services.index');
     }
 
     /**

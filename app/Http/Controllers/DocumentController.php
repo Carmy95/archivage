@@ -22,7 +22,7 @@ class DocumentController extends Controller
     public function index()
     {
         $active = 'documents';
-        $data = Document::all();
+        $data = Document::paginate(5);
         return view('documents.index',compact('data','active'));
     }
 
@@ -68,32 +68,47 @@ class DocumentController extends Controller
                 $documents = ['pdf','txt','doc','docs','ppt','xlsx'];
                 if (in_array($extension,$documents)) {
                     $filename = $file->store('archive', 'public');
+                }else {
+                    $filename = '';
                 }
             } elseif ($request->input('type') == 2) {
                 $images =['jpg','jpeg','gif','png'];
                 if (in_array($extension,$images)) {
                     $filename = $file->store('archive', 'public');
+                }else {
+                    $filename = '';
                 }
             } elseif ($request->input('type') == 3) {
                 $medias = ['mp3','mp4','avi','mpg'];
                 if (in_array($extension,$medias)) {
                     $filename = $file->store('archive', 'public');
+                }else {
+                    $filename = '';
                 }
             } else{
                 $autres = ['zip','rar','7z','cab','iso'];
                 if (in_array($extension,$autres)) {
                     $filename = $file->store('archive', 'public');
+                }else {
+                    $filename = '';
                 }
             }
-            $cou = rand(1,9);
-            $couv = 'dist/img/bg-img/'.$cou.'.jpg';
-            $data->couverture = $couv;
-            $data->doc = $filename;
-            $data->save();
-        }else {
+            if (empty($filename)) {
+                $active = 'documents';
+                return view('500',compact('active'));
+            } else {
+                $cou = rand(1,9);
+                $couv = 'dist/img/bg-img/'.$cou.'.jpg';
+                $data->couverture = $couv;
+                $data->doc = $filename;
+                $data->save();
+                return redirect()->route('documents.index');
+            }
 
+        }else {
+            $active = 'documents';
+            return view('500',compact('active'));
         }
-        return redirect()->route('documents.index');
     }
 
     /**
@@ -180,30 +195,44 @@ class DocumentController extends Controller
                 $documents = ['pdf','txt','doc','docs','ppt','xlsx'];
                 if (in_array($extension,$documents)) {
                     $filename = $file->store('archive', 'public');
+                }else {
+                    $filename = '';
                 }
             } elseif ($request->input('type') == 2) {
                 $images =['jpg','jpeg','gif','png'];
                 if (in_array($extension,$images)) {
                     $filename = $file->store('archive', 'public');
+                }else {
+                    $filename = '';
                 }
             } elseif ($request->input('type') == 3) {
                 $medias = ['mp3','mp4','avi','mpg'];
                 if (in_array($extension,$medias)) {
                     $filename = $file->store('archive', 'public');
+                }else {
+                    $filename = '';
                 }
             } else{
                 $autres = ['zip','rar','7z','cab','iso'];
                 if (in_array($extension,$autres)) {
                     $filename = $file->store('archive', 'public');
+                }else {
+                    $filename = '';
                 }
             }
-            $cou = rand(1,9);
-            $couv = 'dist/img/bg-img/'.$cou.'.jpg';
-            $data->couverture = $couv;
-            $data->doc = $filename;
-            $data->save();
+            if (empty($filename)) {
+                $active = 'documents';
+                return view('clients.500',compact('active'));
+            }else {
+                $cou = rand(1,9);
+                $couv = 'dist/img/bg-img/'.$cou.'.jpg';
+                $data->couverture = $couv;
+                $data->doc = $filename;
+                $data->save();
+            }
         }else {
-
+            $active = 'documents';
+            return view('clients.500',compact('active'));
         }
         return redirect()->route('home');
     }

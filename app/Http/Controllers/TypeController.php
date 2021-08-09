@@ -28,7 +28,7 @@ class TypeController extends Controller
     public function index()
     {
         $active = 'config';
-        $data = Type::all();
+        $data = Type::paginate(5);
         return view('types.index',compact('data','active'));
     }
 

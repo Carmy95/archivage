@@ -11,7 +11,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href=" {{route('home')}} ">Acceuil</a></li>
+              <li class="breadcrumb-item"><a href=" {{route('dashboard')}} ">Acceuil</a></li>
               <li class="breadcrumb-item active">Departements</li>
             </ol>
           </div><!-- /.col -->
@@ -30,7 +30,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-6">                    
+                  <div class="col-md-6">
                     <h3 class="card-title">Liste</h3>
                   </div>
                   <div class="col-md-6" style="text-align: right;">
@@ -44,7 +44,7 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nom du service</th>
+                      <th>Nom du Departement</th>
                       <th colspan="3">Actions</th>
                     </tr>
                   </thead>
@@ -65,8 +65,8 @@
                           <td>
                             <a href="{{ route('departements.show', $item->id) }}" class="btn btn-success" title="Details"><i class="nav-icon fas fa-eye"></i></a>
                           </td>
-                          <td> 
-                          <form method="post" action="{{ route('departements.destroy', $item->id) }}" 
+                          <td>
+                          <form method="post" action="{{ route('departements.destroy', $item->id) }}"
                           onsubmit="return confirm('Etre vous sure de vouloir Supprimer cet departement ?') ">
                             {{ csrf_field() }}{{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-danger" title="Supprimer"><i class="nav-icon fas fa-trash"></i></button>
@@ -81,11 +81,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                    {{ $data->links('vendor.pagination.bootstrap-4') }}
                 </ul>
               </div>
             </div>

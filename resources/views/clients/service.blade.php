@@ -46,6 +46,12 @@
                                     @endforeach
                                 @endif
 	                        </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>{{ $documents->links('vendor.pagination.bootstrap-4') }}</td>
+                                </tr>
+
+                            </tfoot>
 	                    </table>
 	                </div>
                 </div>

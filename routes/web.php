@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('acceuil');
 // });
 
-Route::get('/', [homeController::class,'index'])->name('home');
+Route::get('/dashboard', [homeController::class,'dashboard'])->name('dashboard');
 Route::resource('departements', DepartementController::class);
 Route::resource('services', ServiceController::class);
 Route::resource('documents', DocumentController::class);
@@ -34,6 +34,7 @@ Route::resource('status', StatuController::class);
 Route::resource('types', TypeController::class);
 
 
+Route::get('/', [homeController::class,'index'])->name('home');
 Route::get('/archives',[homeController::class, 'create'])->name('clients.create');
 Route::post('/archives',[DocumentController::class, 'clientstore'])->name('clients.store');
 Route::get('/docservices',[homeController::class, 'services'])->name('clients.service');

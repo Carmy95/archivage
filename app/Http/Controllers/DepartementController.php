@@ -17,8 +17,8 @@ class DepartementController extends Controller
     public function index()
     {
         $active = 'departements';
-        $data = Departement::all();
-        return view('departements.index',compact('data','active'));    
+        $data = Departement::paginate(5);
+        return view('departements.index',compact('data','active'));
     }
 
     /**
@@ -72,7 +72,7 @@ class DepartementController extends Controller
         $active = 'departements';
         $data = Departement::findOrFail($departement->id);
         return view('departements.edit',compact('data','active'));
-    
+
     }
 
     /**
@@ -88,7 +88,7 @@ class DepartementController extends Controller
         $data->update([
             'nom' => $request->input('nom')
             ]);
-        return redirect()->route('departements.index');        
+        return redirect()->route('departements.index');
     }
 
     /**

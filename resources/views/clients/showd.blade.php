@@ -10,7 +10,7 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <a class="gallery_img" href="{{ asset(''.$data->couverture.'') }}">
-                                            <img class="d-block w-100" src="{{ asset(''.$data->couverture.'') }}" alt="First slide">
+                                            <img class="d-block w-100" src="{{ asset(''.$data->couverture.'') }}" alt="First slide" style="height: 400px;">
                                         </a>
                                     </div>
                                 </div>

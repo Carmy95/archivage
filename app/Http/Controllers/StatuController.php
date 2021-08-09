@@ -16,7 +16,7 @@ class StatuController extends Controller
             foreach ($tab as $value) {
                 $new = new Statu();
                 $new->libelle = $value;
-                $new->save();                
+                $new->save();
             }
         }
     }
@@ -28,7 +28,7 @@ class StatuController extends Controller
     public function index()
     {
         $active = 'config';
-        $data = Statu::all();
+        $data = Statu::paginate(5);
         return view('status.index',compact('data','active'));
     }
 
@@ -94,7 +94,7 @@ class StatuController extends Controller
         $data->update([
             'libelle' => $request->input('nom')
             ]);
-        return redirect()->route('status.index');  
+        return redirect()->route('status.index');
     }
 
     /**

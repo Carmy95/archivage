@@ -11,7 +11,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href=" {{route('home')}}">Accueil</a></li>
+              <li class="breadcrumb-item"><a href=" {{route('dashboard')}}">Accueil</a></li>
               <li class="breadcrumb-item active">Services</li>
             </ol>
           </div><!-- /.col -->
@@ -21,7 +21,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-   
+
 <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
@@ -30,13 +30,13 @@
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-6">                    
+                  <div class="col-md-6">
                     <h3 class="card-title">Liste</h3>
                   </div>
                   <div class="col-md-6" style="text-align: right;">
                     <a href=" {{route('services.create')}} " class="btn btn-primary">
                       <i class="nav-icon fas fa-plus"></i> Ajouter
-                    </a>                    
+                    </a>
                   </div>
                 </div>
               </div>
@@ -70,7 +70,7 @@
                             <a href="{{ route('services.show', $item->id) }}" class="btn btn-success" title="Details"><i class="nav-icon fas fa-eye"></i></a>
                           </td>
                           <td>
-                          <form method="post" action="{{ route('services.destroy', $item->id) }}" 
+                          <form method="post" action="{{ route('services.destroy', $item->id) }}"
                           onsubmit="return confirm('Etre vous sure de vouloir Supprimer cet Service ?') ">
                             {{ csrf_field() }}{{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-danger" title="Supprimer"><i class="nav-icon fas fa-trash"></i></button>
@@ -85,11 +85,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                    {{ $data->links('vendor.pagination.bootstrap-4') }}
                 </ul>
               </div>
             </div>

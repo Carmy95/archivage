@@ -6,6 +6,7 @@ use App\Http\Controllers\StatuController;
 use App\Http\Controllers\TypeController;
 use App\Models\Departement;
 use App\Models\Document;
+use App\Models\Service;
 use App\Models\Statu;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -24,9 +25,21 @@ class homeController extends Controller
      */
     public function index()
     {
+        $service = 1;
         $active = 'home';
+        $datas = Document::where('service_id',$service)->limit(9)->latest()->get();
+        // dd($data);
         // return view('acceuil',compact('active'));
-        return view('clients.home',compact('active'));
+        return view('clients.home',compact('active','datas'));
+    }
+    public function dashboard()
+    {
+        $active = 'home';
+        $dep = Departement::all()->count();
+        $ser = Service::all()->count();
+        $doc = Document::all()->count();
+        return view('acceuil',compact('active','dep','ser','doc'));
+        // return view('clients.home',compact('active'));
     }
 
     /**
@@ -45,7 +58,9 @@ class homeController extends Controller
     {
         $service = 1;
         $active = 'service';
-        $documents = Document::where('service_id',$service)->get();
+        // $documents = Document::paginate(1)->get();
+        $documents = Document::where('service_id',$service)->paginate(1);
+        // dd($documents);
         // return view('acceuil',compact('active'));
         return view('clients.service',compact('active','documents'));
     }
