@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     use HasFactory;
-	
+
 	protected $guarded=['id'];
 
 	public function departement()
@@ -19,6 +19,11 @@ class Service extends Model
 	public function document()
 	{
 		return $this->hasMany('App\Models\Document');
+	}
+
+	public function personne()
+	{
+		return $this->hasMany('App\Models\Personne');
 	}
 
 

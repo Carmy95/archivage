@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{route('dashboard')}}" class="brand-link">
       <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Archivage APP</span>
     </a>
@@ -55,6 +55,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('personnes.index')}}" class="nav-link {{ $active == 'users' ? 'active' : '' }} ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Personnelles
+              </p>
+            </a>
+          </li>
           <li class="nav-item8">
             <a href="#" class="nav-link {{ $active == 'config' ? 'active' : '' }} ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -74,6 +82,12 @@
                 <a href="{{route('status.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Status du Document</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('roles.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Roles</p>
                 </a>
               </li>
               <li class="nav-item">

@@ -2,142 +2,97 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\StatuController;
-use App\Http\Controllers\TypeController;
 use App\Models\Departement;
 use App\Models\Document;
+use App\Models\Personne;
 use App\Models\Service;
 use App\Models\Statu;
 use App\Models\Type;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class homeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
+        // $this->middleware('auth');
         $type = new TypeController();
         $status = new StatuController();
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $service = 1;
-        $active = 'home';
-        $datas = Document::where('service_id',$service)->limit(9)->latest()->get();
-        // dd($data);
-        // return view('acceuil',compact('active'));
-        return view('clients.home',compact('active','datas'));
-    }
-    public function dashboard()
-    {
-        $active = 'home';
-        $dep = Departement::all()->count();
-        $ser = Service::all()->count();
-        $doc = Document::all()->count();
-        return view('acceuil',compact('active','dep','ser','doc'));
-        // return view('clients.home',compact('active'));
+        $roles = new RoleController();
+        $dep = new DepartementController();
+        $ser = new ServiceController();
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function index()
+    {
+        $active = 'home';
+        $datas = Document::limit('9')->get();
+        return view('clients.home',compact('active','datas'));
+    }
+
+    public function dashboard()
+    {
+        $active = 'home';
+        $doc = Document::all()->count();$ser = Service::all()->count();
+        $dep = Departement::all()->count();
+        $user = Personne::all()->count();
+        $tab = array();$types = Type::all();$t = 0;$tabs = array();
+        foreach ($types as $value) {
+            $pdf = Document::where('type_id',$value->id)->count();
+            $tab[$t] = $pdf;$t = $t + 1;
+        }$t = 0;
+        foreach ($tab as $value) {
+            if ($doc == 0) {
+                $tabs[$t] = ($value * 100) / 1;$t = $t + 1;
+            } else {
+                $tabs[$t] = ($value * 100) / $doc;$t = $t + 1;
+            }
+        }
+        return view('acceuil',compact('active','doc','ser','dep','tabs','user'));
+    }
+
     public function create()
     {
         $active = 'archive';
-        // return view('acceuil',compact('active'));
         $type = Type::all();$statu = Statu::all();
-        return view('clients.form',compact('active','type','statu'));
+        // return view('acceuil',compact('active'));
+        return view('clients.form',compact('active','type','statu' ));
     }
     public function services()
     {
         $service = 1;
         $active = 'service';
-        // $documents = Document::paginate(1)->get();
-        $documents = Document::where('service_id',$service)->paginate(5);
-        // dd($documents);
         // return view('acceuil',compact('active'));
+        $documents = Document::where('service_id',$service)->paginate(5);
         return view('clients.service',compact('active','documents'));
     }
     public function departement()
     {
         $active = 'departement';
-        $departement = 1;
-        $documents = Departement::with('service.document')->where('id',$departement)->get()->toArray();
-        // Document::where('service_id',$service)->get();
-        // dd($documents);
-        return view('clients.departement',compact('active','documents'));
+        // return view('acceuil',compact('active'));
+        return view('clients.departement',compact('active'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show($document)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // dd('un teste');
-        $active = 'documents';
-        $data = Document::findOrFail($id);
+        $active = 'service';
+        $data = Document::findOrFail($document);
+        // dd($data);
         return view('clients.show',compact('active','data'));
     }
-    public function departshow($id)
-    {
-        // dd('un teste');
-        $active = 'documents';
-        $data = Document::findOrFail($id);
-        return view('clients.showd',compact('active','data'));
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function deconnecter()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        Auth::logout();
     }
 }

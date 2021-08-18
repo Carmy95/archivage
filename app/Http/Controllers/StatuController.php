@@ -74,10 +74,10 @@ class StatuController extends Controller
      * @param  \App\Models\Statu  $statu
      * @return \Illuminate\Http\Response
      */
-    public function edit(Statu $statu)
+    public function edit($id)
     {
         $active = 'config';
-        $data = Statu::findOrFail($statu->id);
+        $data = Statu::findOrFail($id);
         return view('status.edit',compact('data','active'));
     }
 

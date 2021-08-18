@@ -36,7 +36,7 @@
                   <div class="form-group">
                   <input type="hidden" name="_method" value="PUT">
                     <label for="nom">Intituler du status</label>
-                    <input type="text" value=" {{ $data->nom }} " class="form-control {{ $errors->first('nom','is-invalid')}} " name="nom" id="nom" placeholder="Enter le nom du département">
+                    <input type="text" value=" {{ $data->libelle }} " class="form-control {{ $errors->first('nom','is-invalid')}} " name="nom" id="nom" placeholder="Enter le nom du département">
                     {!! $errors->first('nom', '<span style="color: red">:message</span>') !!}
                   </div>
                 </div>

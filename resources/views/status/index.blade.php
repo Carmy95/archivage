@@ -60,7 +60,7 @@
                           <td> {{ $t+=1 }} </td>
                           <td> {{ $item->libelle }} </td>
                           <td>
-                             <a href="{{ route('status.edit', $item->id) }}" class="btn btn-primary" title="Modifier"><i class="nav-icon fas fa-edit"></i></a>
+                             <a href="{{ route('status.edit',$item->id) }}" class="btn btn-primary" title="Modifier"><i class="nav-icon fas fa-edit"></i></a>
                           </td>
                           <td>
                           <form method="post" action="{{ route('status.destroy', $item->id) }}"

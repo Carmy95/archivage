@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">Tableau de bord</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+              <li class="breadcrumb-item active">Tableau de bord</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -60,7 +60,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{ $user }}</h3>
 
                 <p>Utilisateurs</p>
               </div>
@@ -95,30 +95,34 @@
           <div class="card-header border-0">
             <h3 class="card-title">
               <i class="fas fa-th mr-1"></i>
-              Nombre de documents Archivés
+              Pourcentage Par Type de document archivé
             </h3>
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-4 text-center">
-                <input type="text" class="knob" data-readonly="true" value="20" data-width="200" data-height="200"
+              <div class="col-3 text-center">
+                <input type="text" class="knob" data-readonly="true" value="{{ $tabs[0] }}" data-width="200" data-height="200"
                        data-fgColor="rgba(82, 211, 7, 0.753)">
-
-                <div class="text-white">Aujourd'hui</div>
+                <div class="text-white">Documents (Pdf, words, Excel, texte, PowerPoint)</div>
               </div>
               <!-- ./col -->
-               <div class="col-4 text-center">
-                <input type="text" class="knob" data-readonly="true" value="50" data-width="200" data-height="200"
+               <div class="col-3 text-center">
+                <input type="text" class="knob" data-readonly="true" value="{{ $tabs[1] }}" data-width="200" data-height="200"
                        data-fgColor="rgb(231, 235, 18)">
 
-                <div class="text-white">Cette Semaine</div>
+                <div class="text-white">Images (Png, jpg, jpeg)</div>
               </div>
               <!-- ./col -->
-               <div class="col-4 text-center">
-              <input type="text" class="knob" data-readonly="true" value="30" data-width="200" data-height="200"
+               <div class="col-3 text-center">
+                    <input type="text" class="knob" data-readonly="true" value="{{ $tabs[2] }}" data-width="200" data-height="200"
                        data-fgColor="#39CCCC">
-
-                <div class="text-white">Ce Mois</div>
+                    <div class="text-white">Medias (Sons et vidéos)</div>
+              </div>
+              <!-- ./col -->
+               <div class="col-3 text-center">
+                    <input type="text" class="knob" data-readonly="true" value="{{ $tabs[3] }}" data-width="200" data-height="200"
+                       data-fgColor="#39CCCC">
+                    <div class="text-white">Autres (documents Zipé)</div>
               </div>
               <!-- ./col -->
             </div>

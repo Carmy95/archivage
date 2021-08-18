@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')  
+@section('content')
  <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
@@ -35,8 +35,8 @@
                 <div class="card-body">
                   <div class="form-group">
                   <input type="hidden" name="_method" value="PUT">
-                    <label for="nom">Intituler du département</label>
-                    <input type="text" value=" {{ $data->nom }} " class="form-control {{ $errors->first('nom','is-invalid')}} " name="nom" id="nom" placeholder="Enter le nom du département">
+                    <label for="nom">Intituler du Type</label>
+                    <input type="text" value=" {{ $data->libelle }} " class="form-control {{ $errors->first('nom','is-invalid')}} " name="nom" id="nom" placeholder="Enter le nom du département">
                     {!! $errors->first('nom', '<span style="color: red">:message</span>') !!}
                   </div>
                 </div>
@@ -45,13 +45,13 @@
                 <div class="card-footer">
                   <div class="row">
                     <div class="col-md-6" style="text-align: right;">
-                        <input type="submit" class="btn btn-primary" value="Modifier"> 
+                        <input type="submit" class="btn btn-primary" value="Modifier">
                     </div>
                     <div class="col-md-6" style="text-align: left;">
                       <a href=" {{route('types.index')}} " class="btn btn-danger">Annuler</a>
                     </div>
                   </div>
-                </div>                
+                </div>
               </form>
             </div>
             <!-- /.card -->

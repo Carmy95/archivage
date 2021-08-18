@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Document extends Model
 {
     use HasFactory;
-   
+
     protected $guarded=['id'];
 
 	public function service()
@@ -25,5 +26,27 @@ class Document extends Model
 	{
 		return $this->belongsTo('App\Models\statu');
 	}
+
+    public static function countByService($service, $type)
+    {
+        $test = DB::table('documents')
+        ->join('services', 'services.id', '=', 'documents.service_id')
+        ->select('*')
+        ->where('services.id', $service)
+        ->where('documents.type_id', $type)
+        ->get();
+        dd($test);
+    }
+    public static function countByDepart($departement, $type)
+    {
+        $test = DB::table('documents')
+        ->join('services', 'services.id', '=', 'documents.service_id')
+        ->join('departements', 'departements.id', '=', 'services.departement_id')
+        ->select('*')
+        ->where('departements.id', $departement)
+        ->where('documents.type_id', $type)
+        ->get();
+        // dd($test);
+    }
 
 }

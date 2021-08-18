@@ -6,9 +6,22 @@ use App\Models\Departement;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Requests\DepartementRequest;
+use App\Models\Document;
 
 class DepartementController extends Controller
 {
+    public function __construct()
+    {
+        $data = Departement::all();
+        if ($data->isEmpty()) {
+            $tab = ['Archivage'];
+            foreach ($tab as $value) {
+                $new = new Departement();
+                $new->nom = $value;
+                $new->save();
+            }
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -57,6 +70,10 @@ class DepartementController extends Controller
         $data = Departement::findOrFail($departement->id);
         $service = Service::all()->where('departement_id',$departement->id);
         $total = $service->count();
+        $stats = Departement::with('service.document')->where('departements.id',$departement->id)->get();
+        // $count = Document::countByDepart($departement->id,1);
+        // $stat = $stats->count();
+        // dd($stat);
         $active = 'departements';
         return view('departements.show',compact('data','active','total'));
     }

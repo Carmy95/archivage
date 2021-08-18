@@ -20,8 +20,18 @@
     <section class="content">
       <div class="container-fluid">
         <div class="card">
-              <div class="card-header">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-6">
+                  <h3 class="card-title">Liste</h3>
+                </div>
+                <div class="col-md-6" style="text-align: right;">
+                  <a href=" # " class="btn btn-primary">
+                    <i class="nav-icon fas fa-plus"></i> Ajouter/Modifier un chef de departement
+                  </a>
+                </div>
               </div>
+            </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="row">
@@ -53,7 +63,7 @@
                       <div class="inner">
                         <h3>150</h3>
 
-                        <p>Documents en PDF</p>
+                        <p>Documents</p>
                       </div>
                       <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -81,7 +91,7 @@
                       <div class="inner">
                         <h3>44</h3>
 
-                        <p>Documents Words</p>
+                        <p>Media</p>
                       </div>
                       <div class="icon">
                         <i class="ion ion-person-add"></i>

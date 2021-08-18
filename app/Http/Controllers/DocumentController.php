@@ -97,7 +97,7 @@ class DocumentController extends Controller
                 $active = 'documents';
                 return view('500',compact('active'));
             } else {
-                $cou = rand(1,9);
+                $cou = rand(1,10);
                 $couv = 'dist/img/bg-img/'.$cou.'.jpg';
                 $data->couverture = $couv;
                 $data->doc = $filename;
@@ -224,7 +224,7 @@ class DocumentController extends Controller
                 $active = 'documents';
                 return view('clients.500',compact('active'));
             }else {
-                $cou = rand(1,9);
+                $cou = rand(1,10);
                 $couv = 'dist/img/bg-img/'.$cou.'.jpg';
                 $data->couverture = $couv;
                 $data->doc = $filename;

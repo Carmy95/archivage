@@ -9,6 +9,19 @@ use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
+    public function __construct()
+    {
+        $data = Service::all();
+        if ($data->isEmpty()) {
+            $tab = ['Archives'];
+            foreach ($tab as $value) {
+                $new = new Service();
+                $new->nom = $value;
+                $new->departement_id = 1;
+                $new->save();
+            }
+        }
+    }
     /**
      * Display a listing of the resource.
      *

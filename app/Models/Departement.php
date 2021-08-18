@@ -15,5 +15,9 @@ class Departement extends Model
 		return $this->hasMany('App\Models\Service');
 	}
 
+	public function serviceDocument()
+	{
+		return $this->hasOneThrough('App\Models\document','App\Models\service');
+	}
 
 }

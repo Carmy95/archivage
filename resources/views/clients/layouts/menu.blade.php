@@ -14,7 +14,7 @@
             <li class="{{ $active == 'archive' ? 'active' : '' }}"><a href="{{route('clients.create')}}">Archiver un docunent</a></li>
             <li class="{{ $active == 'service' ? 'active' : '' }}"><a href="{{route('clients.service')}}">Les Documents du Services</a></li>
             <li class="{{ $active == 'departement' ? 'active' : '' }}"><a href="{{route('clients.departement')}}">Les Documents du Departements</a></li>
-            <li class="{{ $active == 'connexion' ? 'active' : '' }}"><a href="#">Se Connecter</a></li>
+            <li class="{{ $active == 'connexion' ? 'active' : '' }}"><a href="{{ route('deconnecter') }}">Se Connecter</a></li>
         </ul>
     </nav>
     <!-- Cart Menu -->

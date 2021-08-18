@@ -6,9 +6,11 @@ use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\PersonneController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatuController;
 use App\Http\Controllers\TypeController;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('acceuil');
-// });
+Route::get('/confirme', function () {
+    return view('auth.ologin');
+});
 
 Route::get('/dashboard', [homeController::class,'dashboard'])->name('dashboard');
 Route::resource('departements', DepartementController::class);
@@ -32,8 +34,11 @@ Route::resource('services', ServiceController::class);
 Route::resource('documents', DocumentController::class);
 Route::resource('status', StatuController::class);
 Route::resource('types', TypeController::class);
+Route::resource('roles', RoleController::class);
+Route::resource('personnes', PersonneController::class);
 
 
+Route::get('/deconnecter', [homeController::class,'deconnecter'])->name('deconnecter');
 Route::get('/', [homeController::class,'index'])->name('home');
 Route::get('/archives',[homeController::class, 'create'])->name('clients.create');
 Route::post('/archives',[DocumentController::class, 'clientstore'])->name('clients.store');
@@ -47,3 +52,7 @@ Route::get('/download/{id} ',[DocumentController::class, 'download'])->name('dow
 // Route::get('/',[homeController::class, ''])->name('clients.form');
 // Route::get('/',[homeController::class, ''])->name('clients.form');
 // Route::get('/',[homeController::class, ''])->name('clients.form');
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
