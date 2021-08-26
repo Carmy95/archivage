@@ -6,6 +6,8 @@ use App\Models\Service;
 use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Http\Requests\ServiceRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -29,9 +31,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'services';
         $data = Service::paginate(5);
-        return view('services.index',compact('data','active'));
+        return view('services.index',compact('users','data','active'));
     }
 
     /**
@@ -41,9 +44,10 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'services';
         $data = Departement::all();
-        return view('services.create',compact('data','active'));
+        return view('services.create',compact('users','data','active'));
     }
 
     /**
@@ -69,9 +73,10 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $data = Service::findOrFail($service->id);
         $active = 'services';
-        return view('services.show',compact('data','active'));
+        return view('services.show',compact('users','data','active'));
     }
 
     /**
@@ -82,10 +87,11 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'services';
         $done = Departement::all();
         $data = Service::findOrFail($service->id);
-        return view('services.edit', compact('data','done','active'));
+        return view('services.edit', compact('users','data','done','active'));
     }
 
     /**

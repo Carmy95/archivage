@@ -8,6 +8,8 @@ use App\Models\Type;
 use App\Models\Statu;
 use Illuminate\Http\Request;
 use App\Http\Requests\DocumentRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
@@ -21,9 +23,10 @@ class DocumentController extends Controller
      */
     public function index()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'documents';
         $data = Document::paginate(5);
-        return view('documents.index',compact('data','active'));
+        return view('documents.index',compact('users','data','active'));
     }
 
     /**
@@ -33,10 +36,11 @@ class DocumentController extends Controller
      */
     public function create()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'documents';
         $data = Service::all();
         $type = Type::all();$statu = Statu::all();
-        return view('documents.create', compact('data','type','statu' ,'active'));
+        return view('documents.create', compact('users','data','type','statu' ,'active'));
     }
 
     /**
@@ -47,6 +51,7 @@ class DocumentController extends Controller
      */
     public function store(DocumentRequest $request)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $data = new Document();
         $ref = Service::findOrFail($request->input('service'));
         $compte = Document::all()->count();
@@ -65,7 +70,7 @@ class DocumentController extends Controller
             $file = $request->file('document');
             $extension = $file->getClientOriginalExtension();
             if ($request->input('type') == 1) {
-                $documents = ['pdf','txt','doc','docs','ppt','xlsx'];
+                $documents = ['pdf','txt','doc','docs','docx','ppt','xlsx'];
                 if (in_array($extension,$documents)) {
                     $filename = $file->store('archive', 'public');
                 }else {
@@ -95,19 +100,20 @@ class DocumentController extends Controller
             }
             if (empty($filename)) {
                 $active = 'documents';
-                return view('500',compact('active'));
+                return view('500',compact('users','active'));
             } else {
                 $cou = rand(1,10);
                 $couv = 'dist/img/bg-img/'.$cou.'.jpg';
                 $data->couverture = $couv;
                 $data->doc = $filename;
+                $data->personne_id = Auth::user()->personne->id;
                 $data->save();
                 return redirect()->route('documents.index');
             }
 
         }else {
             $active = 'documents';
-            return view('500',compact('active'));
+            return view('500',compact('users','active'));
         }
     }
 
@@ -119,9 +125,10 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'documents';
         $data = Document::findOrFail($document->id);
-        return view('documents.show',compact('active','data'));
+        return view('documents.show',compact('users','active','data'));
     }
 
     /**
@@ -132,11 +139,12 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'documents';
         $done = Service::all();
         $statu = Statu::all();
         $data = Document::findOrFail($document->id);
-        return view('documents.edit', compact('data','done','statu','active'));
+        return view('documents.edit', compact('users','data','done','statu','active'));
     }
 
     /**
@@ -173,7 +181,8 @@ class DocumentController extends Controller
 
     public function clientstore(DocumentRequest $request)
     {
-        $service = 1;
+        $users = User::findOrFail(Auth::user()->id);
+        $service = $users->personne->service_id;
         $data = new Document();
         $ref = Service::findOrFail($service);
         $compte = Document::all()->count();
@@ -192,7 +201,7 @@ class DocumentController extends Controller
             $file = $request->file('document');
             $extension = $file->getClientOriginalExtension();
             if ($request->input('type') == 1) {
-                $documents = ['pdf','txt','doc','docs','ppt','xlsx'];
+                $documents = ['pdf','txt','doc','docs','docx','ppt','xlsx'];
                 if (in_array($extension,$documents)) {
                     $filename = $file->store('archive', 'public');
                 }else {
@@ -222,17 +231,18 @@ class DocumentController extends Controller
             }
             if (empty($filename)) {
                 $active = 'documents';
-                return view('clients.500',compact('active'));
+                return view('clients.500',compact('users','active'));
             }else {
                 $cou = rand(1,10);
                 $couv = 'dist/img/bg-img/'.$cou.'.jpg';
                 $data->couverture = $couv;
                 $data->doc = $filename;
+                $data->personne_id = Auth::user()->personne->id;
                 $data->save();
             }
         }else {
             $active = 'documents';
-            return view('clients.500',compact('active'));
+            return view('clients.500',compact('users','active'));
         }
         return redirect()->route('home');
     }

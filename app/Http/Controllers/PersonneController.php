@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FirstRequest;
 use App\Http\Requests\PersonnelleRequest;
 use App\Models\Document;
 use App\Models\Personne;
@@ -9,7 +10,9 @@ use App\Models\Role;
 use App\Models\Service;
 use App\Models\Statu;
 use App\Models\Type;
-use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class PersonneController extends Controller
 {
@@ -20,9 +23,10 @@ class PersonneController extends Controller
      */
     public function index()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'users';
         $data = Personne::paginate(5);
-        return view('personnes.index',compact('data','active'));
+        return view('personnes.index',compact('users','data','active'));
     }
 
     /**
@@ -32,10 +36,11 @@ class PersonneController extends Controller
      */
     public function create()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'users';
         $data = Service::all();
         $type = Role::all();
-        return view('personnes.create', compact('data','type','active'));
+        return view('personnes.create', compact('users','data','type','active'));
     }
 
     /**
@@ -80,22 +85,13 @@ class PersonneController extends Controller
             $tab['role'] = $request->input('role');
         }
         $mdp = substr($mdp,0,$min);
-        // dd($mdp);
         $tab['nom'] = $request->input('nom');
         $tab['prenoms'] = $request->input('prenoms');
         $tab['service'] = $request->input('service');
         $tab['mdp'] = $mdp;
         session(['perso' => $tab]);
-        // $tabs = session('perso');
-        // session()->forget('perso');
-        // dd(session()->has('perso'));
-        // $request->input('nom') = 'test';
-        // $request->input('password') =  'test1';
-        // $registre = new RegisterController();
-        // $password = $p;
-        return view('auth.registers', compact('mdp'));
-        // $registre->register($request);
-        // dd($request->all());
+        $users = User::findOrFail(Auth::user()->id);
+        return view('auth.registers', compact('users','mdp'));
     }
 
     /**
@@ -119,7 +115,7 @@ class PersonneController extends Controller
         }$t = 0;
         foreach ($tab as $value) {
             if ($doc == 0) {
-                $tabs[$t] = ($value * 100) / 1;$t = $t + 1;
+                $tabs[$t] = 0;$t = $t + 1;
             } else {
                 $tabs[$t] = ($value * 100) / $doc;$t = $t + 1;
             }
@@ -131,17 +127,15 @@ class PersonneController extends Controller
         }$t = 0;
         foreach ($tab2 as $value) {
             if ($doc == 0) {
-                $statu[$t] = ($value * 100) / 1;$t = $t + 1;
+                $statu[$t] = 0;$t = $t + 1;
             } else {
                 $statu[$t] = ($value * 100) / $doc;$t = $t + 1;
             }
         }
-        $div = ($docs == 0) ? 1 : $docs ;
-        $ens = ($doc * 100) / $div;
-        $div = ($serv == 0) ? 1 : $serv ;
-        $ser = ($doc * 100) / $div;
-
-        return view('personnes.show',compact('active','data','tab','tab2','docs','doc','serv','tabs','statu','ens','ser'));
+        if ($docs == 0) { $ens = 0; } else { $ens = ($doc * 100) / $docs; }
+        if ($serv == 0) { $ser = 0; } else { $ser = ($doc * 100) / $serv; }
+        $users = User::findOrFail(Auth::user()->id);
+        return view('personnes.show',compact('users','active','data','tab','tab2','docs','doc','serv','tabs','statu','ens','ser'));
     }
 
     /**
@@ -152,12 +146,13 @@ class PersonneController extends Controller
      */
     public function edit(Personne $personne)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'users';
         $done = Service::all();
         $statu = Role::all();
         $data = Personne::findOrFail($personne->id);
         $doc = Document::where('personne_id',$data->id)->count();
-        return view('personnes.edit', compact('data','done','statu','active','doc'));
+        return view('personnes.edit', compact('users','data','done','statu','active','doc'));
     }
 
     /**
@@ -175,7 +170,8 @@ class PersonneController extends Controller
             $extension = $file->getClientOriginalExtension();
             $images =['jpg','jpeg','png'];
             if (in_array($extension,$images)) {
-                $photo = $file->store('profil', 'public');
+                $files = $file->store('profil', 'public');
+                $photo = 'storage/'.$files;
             }else {
                 session()->flash('photo', 'L\'extenxion de votre photo n\'est pas un .png ou .jpg ou .jpeg');
                 return redirect()->route('personnes.edit',$data->id);
@@ -183,9 +179,19 @@ class PersonneController extends Controller
         }else {
             $photo = $data->photo;
         }
+        if (Auth::user()->personne->service->departement_id == 1 && (Auth::user()->personne->role_id == 1 || Auth::user()->personne->role_id == 2)) {
+            $role = $request->input('role');
+            $service = $request->input('service');
+        } else {
+            $role = $data->role_id;
+            $service = $data->service_id;
+        }
+
         $data->update([
             'nom' => $request->input('nom'),
             'prenoms' => $request->input('prenoms'),
+            'service_id' => $service,
+            'role_id' => $role,
             'photo' => $photo,
             ]);
         return redirect()->route('personnes.show',$data->id);
@@ -201,5 +207,53 @@ class PersonneController extends Controller
     {
         Personne::destroy($personne->id);
         return redirect()->route('personnes.index');
+    }
+
+    public function first()
+    {
+        $data = Auth::user()->id;
+        return view('auth.first',compact('data'));
+    }
+
+    public function firstStore(FirstRequest $request, $id)
+    {
+        $data = User::findOrFail($id);
+        $data->update([
+            'connexion' => '1',
+            'password' => Hash::make($request->input('password'))
+        ]);
+        $service = Auth::user()->personne->service->id;
+        $departement = Auth::user()->personne->service->departement->id;
+        if ($service == 1 && $departement == 1) {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('home');
+        }
+    }
+
+
+    public function profil_update(PersonnelleRequest $request, $personne)
+    {
+        $data = Personne::findOrFail($personne);
+        if ($request->hasfile('photo')) {
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension();
+            $images =['jpg','jpeg','png'];
+            if (in_array($extension,$images)) {
+                $files = $file->store('profil', 'public');
+                $photo = 'storage/'.$files;
+            }else {
+                session()->flash('photo', 'L\'extenxion de votre photo n\'est pas un .png ou .jpg ou .jpeg');
+                return redirect()->route('clients.edit_profil',$data->id);
+            }
+        }else {
+            $photo = $data->photo;
+        }
+        $data->update([
+            'nom' => $request->input('nom'),
+            'prenoms' => $request->input('prenoms'),
+            'photo' => $photo,
+            ]);
+        return redirect()->route('clients.profil',$data->id);
     }
 }

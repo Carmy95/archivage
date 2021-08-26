@@ -21,6 +21,10 @@ class Document extends Model
 	{
 		return $this->belongsTo('App\Models\Type');
 	}
+	public function personne()
+	{
+		return $this->belongsTo('App\Models\Personne');
+	}
 
 	public function statu()
 	{

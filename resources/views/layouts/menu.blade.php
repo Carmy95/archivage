@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="{{route('dashboard')}}" class="brand-link">
       <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Archivage APP</span>
+      <span class="brand-text font-weight-light">Archivage</span>
     </a>
 
     <!-- Sidebar -->
@@ -11,10 +11,11 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset(''.$users->personne->photo.'')}}" class="img-circle elevation-2" alt="User Image"
+          style="width: 33px; height: 33px;">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block"> {{ strtoupper($users->personne->nom) }} {{ $users->personne->prenoms }} </a>
         </div>
       </div>
 
@@ -32,22 +33,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('departements.index')}}" class="nav-link {{ $active == 'departements' ? 'active' : '' }} ">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Departements
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('services.index')}}" class="nav-link {{ $active == 'services' ? 'active' : '' }} ">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Services
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="{{route('documents.index')}}" class="nav-link {{ $active == 'documents' ? 'active' : '' }} ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -60,6 +45,23 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Personnelles
+              </p>
+            </a>
+          </li>
+          @if ($users->personne->service->departement_id == 1 && ($users->personne->role_id == 1 || $users->personne->role_id == 2))
+          <li class="nav-item">
+            <a href="{{route('departements.index')}}" class="nav-link {{ $active == 'departements' ? 'active' : '' }} ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Departements
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('services.index')}}" class="nav-link {{ $active == 'services' ? 'active' : '' }} ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Services
               </p>
             </a>
           </li>
@@ -90,14 +92,9 @@
                   <p>Roles</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
             </ul>
           </li>
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

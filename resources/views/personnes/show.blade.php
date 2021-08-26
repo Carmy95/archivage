@@ -79,7 +79,8 @@
                   <div class="text-center">
                     <img class="profile-user-img img-fluid img-circle"
                          src="{{ asset(''.$data->photo.'') }}"
-                         alt="{{ $data->nom }}_photo_profil">
+                         alt="{{ $data->nom }}_photo_profil"
+                         style="width: 87px; height: 87px;">
                   </div>
 
                   <h3 class="profile-username text-center">{{ strtoupper($data->nom) }} {{ $data->prenoms }}</h3>
@@ -97,9 +98,10 @@
                       <b>Documents Archivés</b> <a class="float-right">{{ $doc }}</a>
                     </li>
                   </ul>
-
-                  <a href="{{ route('personnes.edit',$data->id) }}" class="btn btn-primary btn-block"><b>Modifier Mon Profil</b></a>
-                  <a href="#" class="btn btn-warning btn-block"><b>Modifier Mon Mot de Passe</b></a>
+                  @if ($users->id == $data->user_id || ($users->personne->service->departement_id == 1 && ($users->personne->role_id == 1 || $users->personne->role_id == 2)))
+                    <a href="{{ route('personnes.edit',$data->id) }}" class="btn btn-primary btn-block"><b>Modifier Mon Profil</b></a>
+                    <a href="#" class="btn btn-warning btn-block"><b>Modifier Mon Mot de Passe</b></a>
+                  @endif
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -122,7 +124,7 @@
                   <div class="tab-content">
                     <div class="active tab-pane" id="activity">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                               <div class="info-box">
                                 <span class="info-box-icon bg-success"><i class="fa fa-building"></i></span>
 
@@ -134,7 +136,7 @@
                               </div>
                               <!-- /.info-box -->
                             </div>
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                               <div class="info-box">
                                 <span class="info-box-icon bg-purple"><i class="fa fa-university"></i></span>
 
@@ -145,8 +147,8 @@
                                 <!-- /.info-box-content -->
                               </div>
                               <!-- /.info-box -->
-                            </div>
-                            <div class="col-md-4">
+                            </div> --}}
+                            <div class="col-md-6">
                               <div class="info-box">
                                 <span class="info-box-icon bg-warning"><i class="fa fa-home"></i></span>
 
@@ -167,17 +169,17 @@
                             </h3>
                         </div>
                         <div class="row">
-                            <div class="col-4 text-center">
+                            <div class="col-6 text-center">
                               <input type="text" class="knob" data-readonly="true" value="{{ $ens }}" data-width="100" data-height="100"
                                      data-fgColor="#28a745">
                               <div class="text-dark">{{ $ens }}% dans l'Appli</div>
                             </div>
-                            <div class="col-4 text-center">
+                            {{-- <div class="col-4 text-center">
                               <input type="text" class="knob" data-readonly="true" value="10" data-width="100" data-height="100"
                                      data-fgColor="#605ca8">
                               <div class="text-dark">10% dans le Departement</div>
-                            </div>
-                            <div class="col-4 text-center">
+                            </div> --}}
+                            <div class="col-6 text-center">
                               <input type="text" class="knob" data-readonly="true" value="{{ $ser }}" data-width="100" data-height="100"
                                      data-fgColor="#ffc107">
                               <div class="text-dark">{{ $ser }}% dans le service</div>
@@ -276,7 +278,7 @@
 
                                 <div class="info-box-content">
                                   <span class="info-box-text">Documents Privés</span>
-                                  <span class="info-box-number">{{ $tab2[0] }}</span>
+                                  <span class="info-box-number">{{ $tab2[1] }}</span>
                                 </div>
                                 <!-- /.info-box-content -->
                               </div>
@@ -288,7 +290,7 @@
 
                                 <div class="info-box-content">
                                   <span class="info-box-text">Documents Publiques</span>
-                                  <span class="info-box-number">{{ $tab2[1] }}</span>
+                                  <span class="info-box-number">{{ $tab2[0] }}</span>
                                 </div>
                                 <!-- /.info-box-content -->
                               </div>
@@ -303,14 +305,14 @@
                         </div>
                         <div class="row">
                             <div class="col-6 text-center">
-                              <input type="text" class="knob" data-readonly="true" value="{{ $statu[0] }}" data-width="100" data-height="100"
+                              <input type="text" class="knob" data-readonly="true" value="{{ $statu[1] }}" data-width="100" data-height="100"
                                      data-fgColor="#28a745">
-                              <div class="text-dark">{{ $statu[0] }}% de documents Privés</div>
+                              <div class="text-dark">{{ $statu[1] }}% de documents Privés</div>
                             </div>
                             <div class="col-6 text-center">
-                              <input type="text" class="knob" data-readonly="true" value="{{ $statu[1] }}" data-width="100" data-height="100"
+                              <input type="text" class="knob" data-readonly="true" value="{{ $statu[0] }}" data-width="100" data-height="100"
                                      data-fgColor="#605ca8">
-                              <div class="text-dark">{{ $statu[1] }}% de documents Publique</div>
+                              <div class="text-dark">{{ $statu[0] }}% de documents Publique</div>
                             </div>
                         </div>
                     </div>

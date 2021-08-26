@@ -8,6 +8,7 @@ use App\Models\Personne;
 use App\Models\Service;
 use App\Models\Statu;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,8 @@ class homeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
+        $this->middleware('first');
         $type = new TypeController();
         $status = new StatuController();
         $roles = new RoleController();
@@ -35,14 +37,17 @@ class homeController extends Controller
      */
     public function index()
     {
+        $users = User::findOrFail(Auth::user()->id);
+        $service = $users->personne->service_id;
         $active = 'home';
-        $datas = Document::limit('9')->get();
-        return view('clients.home',compact('active','datas'));
+        $datas = Document::where('service_id',$service)->limit('9')->get();
+        return view('clients.home',compact('users','active','datas'));
     }
 
     public function dashboard()
     {
         $active = 'home';
+        $users = User::findOrFail(Auth::user()->id);
         $doc = Document::all()->count();$ser = Service::all()->count();
         $dep = Departement::all()->count();
         $user = Personne::all()->count();
@@ -58,41 +63,80 @@ class homeController extends Controller
                 $tabs[$t] = ($value * 100) / $doc;$t = $t + 1;
             }
         }
-        return view('acceuil',compact('active','doc','ser','dep','tabs','user'));
+        return view('acceuil',compact('users','active','doc','ser','dep','tabs','user'));
     }
 
     public function create()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'archive';
         $type = Type::all();$statu = Statu::all();
         // return view('acceuil',compact('active'));
-        return view('clients.form',compact('active','type','statu' ));
+        return view('clients.form',compact('users','active','type','statu' ));
     }
     public function services()
     {
-        $service = 1;
+        $users = User::findOrFail(Auth::user()->id);
+        $service = $users->personne->service_id;
         $active = 'service';
-        // return view('acceuil',compact('active'));
         $documents = Document::where('service_id',$service)->paginate(5);
-        return view('clients.service',compact('active','documents'));
+        return view('clients.service',compact('users','active','documents'));
     }
     public function departement()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'departement';
-        // return view('acceuil',compact('active'));
-        return view('clients.departement',compact('active'));
+        return view('clients.departement',compact('users','active'));
     }
 
     public function show($document)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'service';
         $data = Document::findOrFail($document);
         // dd($data);
-        return view('clients.show',compact('active','data'));
+        return view('clients.show',compact('users','active','data'));
+    }
+
+    public function client_404()
+    {
+        $active = 'home';
+        $users = User::findOrFail(Auth::user()->id);
+        return view('clients.404',compact('users','active'));
+    }
+
+    public function admin_404()
+    {
+        $active = 'home';
+        $users = User::findOrFail(Auth::user()->id);
+        return view('404',compact('users','active'));
     }
 
     public function deconnecter()
     {
         Auth::logout();
+        return redirect()->route('login');
+    }
+
+    public function profil($id)
+    {
+        $active = 'home';
+        $users = User::findOrFail(Auth::user()->id);
+        if ($id == $users->personne->id) {
+            return view('clients.profil',compact('users','active'));
+        }else {
+            return redirect()->route('clients.404');
+        }
+    }
+
+    public function edit($id)
+    {
+        $active = 'home';
+        $users = User::findOrFail(Auth::user()->id);
+        if ($id == $users->personne->id) {
+            return view('clients.profil_edit',compact('users','active'));
+        }else {
+            return redirect()->route('clients.404');
+        }
     }
 }

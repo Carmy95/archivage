@@ -14,10 +14,10 @@
         <a href="{{route('dashboard')}}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Mon Profil</a>
+        <a href="{{ route('personnes.show',$users->personne) }}" class="nav-link">Mon Profil</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Se deconnecter</a>
+        <a href="{{ route('deconnecter') }}" class="nav-link">Se deconnecter</a>
       </li>
     </ul>
 

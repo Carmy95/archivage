@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Requests\TypeRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TypeController extends Controller
 {
@@ -27,9 +29,10 @@ class TypeController extends Controller
      */
     public function index()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
         $data = Type::paginate(5);
-        return view('types.index',compact('data','active'));
+        return view('types.index',compact('users','data','active'));
     }
 
     /**
@@ -39,8 +42,9 @@ class TypeController extends Controller
      */
     public function create()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
-        return view('types.create',compact('active'));
+        return view('types.create',compact('users','active'));
     }
 
     /**
@@ -76,9 +80,10 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
         $data = Type::findOrFail($type->id);
-        return view('types.edit',compact('data','active'));
+        return view('types.edit',compact('users','data','active'));
     }
 
     /**

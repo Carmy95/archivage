@@ -23,7 +23,7 @@
                             <div class="product-meta-data">
                                 <div class="line"></div>
                                 <p class="product-price">{{ $data->reference }}</p>
-                                <a href="product-details.html">
+                                <a href="#">
                                     <h6>{{ strtoupper($data->nom) }}</h6>
                                 </a>
                                 <!-- Ratings & Review -->
@@ -39,8 +39,15 @@
                                         Archivé le : <a href="#">{{ $data->created_at }}</a>
                                     </div>
                                 </div>
+                                <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
+                                    <div class="ratings">
+                                        <p class="avaibility"><i class="fa fa-circle"></i> {{ $data->statu->libelle }}</p>
+                                    </div>
+                                    <div class="review">
+                                        <p class="avaibility"> Archivé Par :<i class="fa fa-users"></i> {{ $data->personne->nom }} {{ $data->personne->prenoms }}</p>
+                                    </div>
+                                </div>
                                 <!-- Avaiable -->
-                                <p class="avaibility"><i class="fa fa-circle"></i> {{ $data->statu->libelle }}</p>
                             </div>
 
                             <div class="short_overview my-5">
@@ -49,7 +56,15 @@
                             <div class="short_overview my-5">
                             <p>
                             <div class="short_overview my-5">
+                                @if ($data->statu_id == 2)
+                                    @if ($users->personne->role_id == 1 || $users->personne->role_id == 2 || $users->personne_id == $data->personne_id)
+                                    <p><a href="{{ route('download',$data->id) }}" class="btn amado-btn">Télécharger</a> <a href="{{ route('clients.service') }}" class="btn amado-btn">Retour</a></p>
+                                    @else
+                                    <p><a href="{{ route('clients.service') }}" class="btn amado-btn">Retour</a></p>
+                                    @endif
+                                @else
                                 <p><a href="{{ route('download',$data->id) }}" class="btn amado-btn">Télécharger</a> <a href="{{ route('clients.service') }}" class="btn amado-btn">Retour</a></p>
+                                @endif
                             </div>
                             <div class="short_overview my-5">
                             </div>

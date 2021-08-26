@@ -67,10 +67,11 @@
                           <td><span class="badge bg-warning"> {{ $item->service->nom }} </span></td>
                           <td><span class="badge bg-danger"> {{ $item->role->libelle }} </span></td>
                           <td>
-                             <a href="{{ route('personnes.edit', $item->id) }}" class="btn btn-primary" title="Modifier"><i class="nav-icon fas fa-edit"></i></a>
-                          </td>
-                          <td>
                             <a href="{{ route('personnes.show', $item->id) }}" class="btn btn-success" title="Details"><i class="nav-icon fas fa-eye"></i></a>
+                          </td>
+                          @if ($users->personne->service->departement_id == 1 && ($users->personne->role_id == 1 || $users->personne->role_id == 2))
+                          <td>
+                             <a href="{{ route('personnes.edit', $item->id) }}" class="btn btn-primary" title="Modifier"><i class="nav-icon fas fa-edit"></i></a>
                           </td>
                           <td>
                           <form method="post" action="{{ route('personnes.destroy', $item->id) }}"
@@ -79,6 +80,8 @@
                             <button type="submit" class="btn btn-danger" title="Supprimer"><i class="nav-icon fas fa-trash"></i></button>
                           </form>
                           </td>
+
+                          @endif
                         </tr>
                       @endforeach
                     @endif

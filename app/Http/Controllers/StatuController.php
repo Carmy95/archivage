@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Statu;
 use Illuminate\Http\Request;
 use App\Http\Requests\StatuRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class StatuController extends Controller
 {
@@ -27,9 +29,10 @@ class StatuController extends Controller
      */
     public function index()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
         $data = Statu::paginate(5);
-        return view('status.index',compact('data','active'));
+        return view('status.index',compact('users','data','active'));
     }
 
     /**
@@ -39,8 +42,9 @@ class StatuController extends Controller
      */
     public function create()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
-        return view('status.create',compact('active'));
+        return view('status.create',compact('users','active'));
     }
 
     /**
@@ -76,9 +80,10 @@ class StatuController extends Controller
      */
     public function edit($id)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
         $data = Statu::findOrFail($id);
-        return view('status.edit',compact('data','active'));
+        return view('status.edit',compact('users','data','active'));
     }
 
     /**

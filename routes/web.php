@@ -25,33 +25,37 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/confirme', function () {
-    return view('auth.ologin');
+    return view('auth.first');
 });
 
-Route::get('/dashboard', [homeController::class,'dashboard'])->name('dashboard');
-Route::resource('departements', DepartementController::class);
-Route::resource('services', ServiceController::class);
-Route::resource('documents', DocumentController::class);
-Route::resource('status', StatuController::class);
-Route::resource('types', TypeController::class);
-Route::resource('roles', RoleController::class);
+Route::get('/dashboard', [homeController::class,'dashboard'])->name('dashboard')->middleware('admin');
+Route::resource('departements', DepartementController::class)->middleware('admin');
+Route::resource('services', ServiceController::class)->middleware('admin');
+Route::resource('documents', DocumentController::class)->middleware('admin');
+Route::resource('status', StatuController::class)->middleware('admin');
+Route::resource('types', TypeController::class)->middleware('admin');
+Route::resource('roles', RoleController::class)->middleware('admin');
 Route::resource('personnes', PersonneController::class);
 
 
 Route::get('/deconnecter', [homeController::class,'deconnecter'])->name('deconnecter');
-Route::get('/', [homeController::class,'index'])->name('home');
-Route::get('/archives',[homeController::class, 'create'])->name('clients.create');
-Route::post('/archives',[DocumentController::class, 'clientstore'])->name('clients.store');
-Route::get('/docservices',[homeController::class, 'services'])->name('clients.service');
-Route::get('/docshow/{id} ',[homeController::class, 'show'])->name('clients.show');
-Route::get('/departeshow/{id} ',[homeController::class, 'departshow'])->name('clients.departe.show');
-Route::get('/docdepartements',[homeController::class, 'departement'])->name('clients.departement');
+Route::get('/', [homeController::class,'index'])->name('home')->middleware('client');
+Route::get('/archives',[homeController::class, 'create'])->name('clients.create')->middleware('client');
+Route::post('/archives',[DocumentController::class, 'clientstore'])->name('clients.store')->middleware('client');
+Route::get('/docservices',[homeController::class, 'services'])->name('clients.service')->middleware('client');
+Route::get('/docshow/{id} ',[homeController::class, 'show'])->name('clients.show')->middleware('client');
+Route::get('/departeshow/{id} ',[homeController::class, 'departshow'])->name('clients.departe.show')->middleware('client');
+Route::get('/docdepartements',[homeController::class, 'departement'])->name('clients.departement')->middleware('client');
 //telechargement du document
 Route::get('/download/{id} ',[DocumentController::class, 'download'])->name('download');
 
-// Route::get('/',[homeController::class, ''])->name('clients.form');
-// Route::get('/',[homeController::class, ''])->name('clients.form');
-// Route::get('/',[homeController::class, ''])->name('clients.form');
+Route::get('/errors404',[homeController::class, 'client_404'])->name('clients.404');
+Route::get('/erros',[homeController::class, 'admin_404'])->name('admin.404');
+Route::get('/first',[PersonneController::class, 'first'])->name('first');
+Route::get('/profil/{id}',[homeController::class, 'profil'])->name('clients.profil')->middleware('client');
+Route::get('/editprofil/{id}',[homeController::class, 'edit'])->name('clients.edit_profil')->middleware('client');
+Route::post('/first/{id}',[PersonneController::class, 'firstStore'])->name('first.update');
+Route::post('/profil/{id}',[PersonneController::class, 'profil_update'])->name('clients.update_profil')->middleware('client');
 
 Auth::routes();
 

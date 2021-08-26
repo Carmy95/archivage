@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -26,9 +28,10 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
         $data = Role::paginate(5);
-        return view('roles.index',compact('data','active'));
+        return view('roles.index',compact('users','data','active'));
     }
 
     /**
@@ -38,8 +41,9 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
-        return view('roles.create',compact('active'));
+        return view('roles.create',compact('users','active'));
     }
 
     /**
@@ -75,9 +79,10 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
         $data = Role::findOrFail($role->id);
-        return view('roles.edit',compact('data','active'));
+        return view('roles.edit',compact('users','data','active'));
     }
 
     /**

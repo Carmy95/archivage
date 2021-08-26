@@ -39,7 +39,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                              <td rowspan="4"><img src="{{ asset(''.$data->couverture.'') }}" width="250" height="314" alt=""></td>
+                              <td rowspan="5"><img src="{{ asset(''.$data->couverture.'') }}" width="250" height="314" alt=""></td>
                               <td>Departement : {{ $data->service->departement->nom }}</td>
                             </tr>
                             <tr>
@@ -49,11 +49,22 @@
                               <td>Archivé le : {{ $data->created_at }} </td>
                             </tr>
                             <tr>
-                              <td>Aprops du document : <br>{{ $data->commentaire }} </td>
+                                <td>Archivé par : {{ $data->personne->nom }} {{ $data->personne->prenoms }}</td>
                             </tr>
                             <tr>
-                              <td colspan="2"> <a href="{{ route('download',$data->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-download-alt"></i> Telecharger</a> </td>
+                              <td>Aprops du document : <br>{{ $data->commentaire }} </td>
                             </tr>
+                            @if ($data->statu_id == 2)
+                                @if ($users->personne->role_id == 1 || $users->personne->role_id == 2 || $users->personne_id == $data->personne_id)
+                                    <tr>
+                                        <td colspan="2"> <a href="{{ route('download',$data->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-download-alt"></i> Telecharger</a> </td>
+                                    </tr>
+                                @endif
+                            @else
+                                <tr>
+                                    <td colspan="2"> <a href="{{ route('download',$data->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-download-alt"></i> Telecharger</a> </td>
+                                </tr>
+                            @endif
                         </tbody>
                       </table>
                     </div>

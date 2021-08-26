@@ -33,7 +33,8 @@
                   <div class="text-center">
                      <img class="profile-user-img img-fluid img-circle"
                         src="{{ asset(''.$data->photo.'') }}"
-                         alt="{{ $data->nom }}_photo_profil">
+                         alt="{{ $data->nom }}_photo_profil"
+                         style="width: 87px; height: 87px;">
                   </div>
 
                    <h3 class="profile-username text-center">{{ strtoupper($data->nom) }} {{ $data->prenoms }}</h3>
@@ -84,6 +85,7 @@
                           <input type="text" value="{{ $data->prenoms }}" class="form-control {{ $errors->first('nom','is-invalid')}} " name="prenoms" id="prenoms">
                           {!! $errors->first('prenoms', '<span style="color: red">:message</span>') !!}
                         </div>
+                        @if ($users->personne->service->departement_id == 1 && ($users->personne->role_id == 1 || $users->personne->role_id == 2))
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -118,6 +120,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="form-group">
                           <label for="photo">Changer de photo</label>
                           <input type="file" class="form-control" name="photo" id="photo">

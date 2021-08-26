@@ -7,6 +7,8 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Requests\DepartementRequest;
 use App\Models\Document;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class DepartementController extends Controller
 {
@@ -29,9 +31,10 @@ class DepartementController extends Controller
      */
     public function index()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'departements';
         $data = Departement::paginate(5);
-        return view('departements.index',compact('data','active'));
+        return view('departements.index',compact('users','data','active'));
     }
 
     /**
@@ -41,8 +44,9 @@ class DepartementController extends Controller
      */
     public function create()
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'departements';
-        return view('departements.create',compact('active'));
+        return view('departements.create',compact('users','active'));
     }
 
     /**
@@ -67,15 +71,13 @@ class DepartementController extends Controller
      */
     public function show(Departement $departement)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $data = Departement::findOrFail($departement->id);
         $service = Service::all()->where('departement_id',$departement->id);
         $total = $service->count();
         $stats = Departement::with('service.document')->where('departements.id',$departement->id)->get();
-        // $count = Document::countByDepart($departement->id,1);
-        // $stat = $stats->count();
-        // dd($stat);
         $active = 'departements';
-        return view('departements.show',compact('data','active','total'));
+        return view('departements.show',compact('users','data','active','total'));
     }
 
     /**
@@ -86,9 +88,10 @@ class DepartementController extends Controller
      */
     public function edit(Departement $departement)
     {
+        $users = User::findOrFail(Auth::user()->id);
         $active = 'departements';
         $data = Departement::findOrFail($departement->id);
-        return view('departements.edit',compact('data','active'));
+        return view('departements.edit',compact('users','data','active'));
 
     }
 

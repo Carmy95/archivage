@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,7 +43,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -78,11 +79,10 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        // dd($request->all());
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-        $users = User::all()->last();
+        $users = User::all()->max('id');
         $tabs = session('perso');
         session()->forget('perso');
         if ($response = $this->registered($tabs, $users)) {
@@ -94,16 +94,18 @@ class RegisterController extends Controller
     }
 
 
-    protected function registered($tabs, $user)
+    protected function registered($tabs, $id)
     {
         $data = new Personne();
         $data->nom = $tabs['nom'];
         $data->prenoms = $tabs['prenoms'];
         $data->service_id = $tabs['service'];
         $data->role_id = $tabs['role'];
-        $data->user_id = $user->id;
+        $data->user_id = $id;
         $data->photo = 'dist/img/user_default.png';
         $data->save();
-        return view('auth.confirme', compact('tabs','user'));
+        $users = User::findOrFail(Auth::user()->id);
+        $user = User::findOrFail($id);
+        return view('auth.confirme', compact('users','tabs','user'));
     }
 }

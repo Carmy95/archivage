@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Amado - Furniture Ecommerce Template | Home</title>
+    <title>Archivage | Home</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="{{asset('dist/img/core-img/favicon.ico')}}">
@@ -48,7 +48,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.html"><img src="{{asset('dist/img/core-img/logo.png')}}" alt=""></a>
+                <a href="{{ route('home') }}"><img src="{{asset('dist/img/AdminLTELogo.png')}}" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -76,7 +76,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href=" {{route('home')}} "><img src="{{asset('dist/img/core-img/logo2.png')}}" alt=""></a>
+                            <a href=" {{route('home')}} "><img src="{{asset('dist/img/AdminLTELogo.png')}}" alt=""></a>
 
                         <p class="copywrite"> Copyright &copy; {{ date('Y')}}  Tout droit réserver | Réalisé Par <a href="#" target="_blank">Aicha Konaté</a> | Version 0.1
                         </p>
@@ -108,11 +108,13 @@
                                         <li class="nav-item {{ $active == 'service' ? 'active' : '' }}">
                                             <a class="nav-link" href="{{route('clients.service')}}">Les Documents du Services</a>
                                         </li>
-                                        <li class="nav-item {{ $active == 'departement' ? 'active' : '' }}">
-                                            <a class="nav-link" href="{{route('clients.departement')}}">Les Documents du Departements</a>
-                                        </li>
+                                        @if ($users->personne->role_id == 1)
+                                            <li class="nav-item {{ $active == 'departement' ? 'active' : '' }}">
+                                                <a class="nav-link" href="{{route('clients.departement')}}">Les Documents du Departements</a>
+                                            </li>
+                                        @endif
                                         <li class="nav-item {{ $active == 'connexion' ? 'active' : '' }}">
-                                            <a class="nav-link" href="{{ route('clients.show','1') }}">Se Connecter</a>
+                                            <a class="nav-link" href="{{ route('deconnecter') }}">Se Deconnecter</a>
                                         </li>
                                     </ul>
                                 </div>
