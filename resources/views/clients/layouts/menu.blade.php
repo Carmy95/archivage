@@ -7,7 +7,7 @@
     <div class="logo" style="margin-bottom: 10px;">
         <a href="{{route('clients.profil',$users->personne->id)}}"><img style="border-radius: 10%; border: solid rgb(252, 194, 4) 5px; with:150px; height:150px; margin-bottom: 10px;" src="{{asset(''.$users->personne->photo.'')}}" alt=""></a>
         <div style="text-align: center">
-            <b class="h5" style="">{{ $users->personne->nom }} <br> {{ $users->personne->prenoms }}</b>
+            <b class="h5" style="">{{ $users->personne->nom }} <br> {{ $users->personne->prenoms }}</b> <br>
             <i>{{ $users->personne->role->libelle }}</i>
         </div>
     </div>
