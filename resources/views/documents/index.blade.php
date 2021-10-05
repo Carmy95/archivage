@@ -44,9 +44,9 @@
                     <tr>
                       <th>#</th>
                       <th>Nom du document</th>
-                      <th>Service</th>
+                      <th>Services</th>
                       <th>Type du document</th>
-                      <th>Status</th>
+                      <th>Statuts</th>
                       <th colspan="3">Actions</th>
                     </tr>
                   </thead>

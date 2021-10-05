@@ -28,7 +28,7 @@
           <div class="col-lg-12 col-12">
             <h2>Quelques Statistiques</h2>
           </div>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
@@ -42,21 +42,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>{{ $dep }}</h3>
-
-                <p>Departements</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
@@ -70,7 +56,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">

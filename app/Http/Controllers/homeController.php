@@ -26,8 +26,8 @@ class homeController extends Controller
         $type = new TypeController();
         $status = new StatuController();
         $roles = new RoleController();
-        $dep = new DepartementController();
         $ser = new ServiceController();
+        $per = new PersonneController();
     }
 
     /**
@@ -49,7 +49,6 @@ class homeController extends Controller
         $active = 'home';
         $users = User::findOrFail(Auth::user()->id);
         $doc = Document::all()->count();$ser = Service::all()->count();
-        $dep = Departement::all()->count();
         $user = Personne::all()->count();
         $tab = array();$types = Type::all();$t = 0;$tabs = array();
         foreach ($types as $value) {
@@ -63,7 +62,7 @@ class homeController extends Controller
                 $tabs[$t] = ($value * 100) / $doc;$t = $t + 1;
             }
         }
-        return view('acceuil',compact('users','active','doc','ser','dep','tabs','user'));
+        return view('acceuil',compact('users','active','doc','ser','tabs','user'));
     }
 
     public function create()
@@ -81,12 +80,6 @@ class homeController extends Controller
         $active = 'service';
         $documents = Document::where('service_id',$service)->paginate(5);
         return view('clients.service',compact('users','active','documents'));
-    }
-    public function departement()
-    {
-        $users = User::findOrFail(Auth::user()->id);
-        $active = 'departement';
-        return view('clients.departement',compact('users','active'));
     }
 
     public function show($document)
@@ -138,5 +131,22 @@ class homeController extends Controller
         }else {
             return redirect()->route('clients.404');
         }
+    }
+    public function recherche(Request $request)
+    {
+        $users = User::findOrFail(Auth::user()->id);
+        $nom = $request->input('search');
+        $ref = $request->input('search');
+        $docbynom = Document::where('nom', $nom)->get();
+        $docbyref = Document::where('reference', $ref)->get();
+        if($docbynom->isNotEmpty()){
+            $datas = $docbynom;
+        }elseif ($docbyref->isNotEmpty()) {
+            $datas = $docbyref;
+        }else{
+            $datas = '';
+        }
+        $active = 'home';
+        return view('clients.home',compact('users','active','datas'));
     }
 }

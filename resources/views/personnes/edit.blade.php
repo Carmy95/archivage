@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Personnelles</h1>
+            <h1 class="m-0">Personnels</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href=" {{route('dashboard')}} ">Acceuil</a></li>
-              <li class="breadcrumb-item"><a href=" {{route('personnes.index')}} ">Personnelles</a></li>
+              <li class="breadcrumb-item"><a href=" {{route('personnes.index')}} ">Personnels</a></li>
               <li class="breadcrumb-item"><a href=" {{route('personnes.show',$data->id)}} ">{{ strtoupper($data->nom) }} {{ $data->prenoms }}</a></li>
               <li class="breadcrumb-item active">Modifier</li>
             </ol>
@@ -43,9 +43,6 @@
 
                   <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                       <b>Département </b> <a class="float-right">{{ strtoupper($data->service->departement->nom) }}</a>
-                    </li>
-                    <li class="list-group-item">
                        <b>Service </b> <a class="float-right">{{ strtoupper($data->service->nom) }}</a>
                     </li>
                     <li class="list-group-item">
@@ -68,7 +65,7 @@
                 <div class="card-header p-2">
                     <span class="h3 mt-2" style="text-align: center">Formulaire de Modification</span>
                 </div><!-- /.card-header -->
-                <form action="{{route('personnes.update',$data->id)}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('personnes.update', $data->id)}}" method="post" enctype="multipart/form-data">
                     <div class="card-body">
                     <!-- form start -->
                     {{ csrf_field() }}
@@ -85,7 +82,7 @@
                           <input type="text" value="{{ $data->prenoms }}" class="form-control {{ $errors->first('nom','is-invalid')}} " name="prenoms" id="prenoms">
                           {!! $errors->first('prenoms', '<span style="color: red">:message</span>') !!}
                         </div>
-                        @if ($users->personne->service->departement_id == 1 && ($users->personne->role_id == 1 || $users->personne->role_id == 2))
+                        @if ($users->personne->role_id == 1)
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

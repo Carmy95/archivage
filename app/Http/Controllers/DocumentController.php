@@ -57,9 +57,8 @@ class DocumentController extends Controller
         $compte = Document::all()->count();
         $compte = $compte + 1;
         $an = date('Y'); $jour = date('md');
-        $dep = strtoupper(substr($ref->departement->nom,0,2));
         $ser = strtoupper(substr($ref->nom,0,2));
-        $ref = $an.''.$dep.''.$jour.''.$ser.''.$compte;
+        $ref = $an.''.$jour.''.$ser.''.$compte;
         $data->reference = $ref;
         $data->nom = $request->input('nom');
         $data->service_id = $request->input('service');
@@ -188,9 +187,8 @@ class DocumentController extends Controller
         $compte = Document::all()->count();
         $compte = $compte + 1;
         $an = date('Y'); $jour = date('md');
-        $dep = strtoupper(substr($ref->departement->nom,0,2));
         $ser = strtoupper(substr($ref->nom,0,2));
-        $ref = $an.''.$dep.''.$jour.''.$ser.''.$compte;
+        $ref = $an.''.$jour.''.$ser.''.$compte;
         $data->reference = $ref;
         $data->nom = $request->input('nom');
         $data->service_id = $service;

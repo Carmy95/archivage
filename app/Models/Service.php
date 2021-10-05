@@ -11,10 +11,6 @@ class Service extends Model
 
 	protected $guarded=['id'];
 
-	public function departement()
-	{
-		return $this->belongsTo('App\Models\Departement');
-	}
 
 	public function document()
 	{

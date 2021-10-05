@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Personnelles </h1>
+            <h1>Personnels </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -35,8 +35,8 @@
 
                 <div class="card-body" style="font-size: 25px;">
                     <h2 style="text-align: center; text-decoration: underline">Compte crée avec Success</h2>
-                    <p>Le Compte de M./Mme/Mlle <b>{{ strtoupper($tabs['nom']) }} {{ $tabs['prenoms'] }}</b> a ete crée avec success</p>
-                    <p>il peut desormais avoir access a la plateforme d'archivage, pour archiver, consulter les documents du service au quelle il/elle appartient.</p>
+                    <p>Le Compte de M./Mme/Mlle <b>{{ strtoupper($tabs['nom']) }} {{ $tabs['prenoms'] }}</b> a été crée avec succèss.</p>
+                    <p>Il peut desormais avoir accèss a la plateforme d'archivage, pour archiver, consulter les documents du service au quel il/elle appartient.</p>
                     <h5><u>Identifient de Connexion:</u></h5>
                     <p style="padding-left: 15px">Email : <b><i>{{ $user->email }}</i></b></p>
                     <p style="padding-left: 15px">Mot de Passe : <b><i>{{ $tabs['mdp'] }}</i></b></p>

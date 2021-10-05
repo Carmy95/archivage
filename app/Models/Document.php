@@ -41,16 +41,5 @@ class Document extends Model
         ->get();
         dd($test);
     }
-    public static function countByDepart($departement, $type)
-    {
-        $test = DB::table('documents')
-        ->join('services', 'services.id', '=', 'documents.service_id')
-        ->join('departements', 'departements.id', '=', 'services.departement_id')
-        ->select('*')
-        ->where('departements.id', $departement)
-        ->where('documents.type_id', $type)
-        ->get();
-        // dd($test);
-    }
 
 }

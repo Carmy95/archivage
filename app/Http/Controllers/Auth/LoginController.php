@@ -48,12 +48,10 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         $service = Auth::user()->personne->service->id;
-        $departement = Auth::user()->personne->service->departement->id;
-        if ($service == 1 && $departement == 1) {
+        if ($service == 1) {
             return route('dashboard');
         } else {
             return route('clients.404');
         }
-        // dd('ok');
     }
 }

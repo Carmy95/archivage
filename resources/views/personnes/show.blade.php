@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Personnelles</h1>
+            <h1 class="m-0">Personnels</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href=" {{route('dashboard')}} ">Acceuil</a></li>
-              <li class="breadcrumb-item"><a href=" {{route('personnes.index')}} ">Personnelles</a></li>
+              <li class="breadcrumb-item"><a href=" {{route('personnes.index')}} ">Personnels</a></li>
               <li class="breadcrumb-item active">Details</li>
               <li class="breadcrumb-item active">{{ strtoupper($data->nom) }} {{ $data->prenoms }}</li>
             </ol>
@@ -23,50 +23,6 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    {{-- <section class="content">
-        <div class="container-fluid">
-          <div class="card">
-                <div class="card-header">
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <table class="table table-bordered" style="text-align: center;">
-                        <thead>
-                          <tr>
-                            <th colspan="2">{{ $data->nom }} </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td rowspan="4"><img src="{{ asset(''.$data->couverture.'') }}" width="250" height="314" alt=""></td>
-                              <td>Departement : {{ $data->service->departement->nom }}</td>
-                            </tr>
-                            <tr>
-                              <td>Service : {{ $data->service->nom }}</td>
-                            </tr>
-                            <tr>
-                              <td>Archivé le : {{ $data->created_at }} </td>
-                            </tr>
-                            <tr>
-                              <td>Aprops du document : <br>{{ $data->commentaire }} </td>
-                            </tr>
-                            <tr>
-                              <td colspan="2"> <a href="{{ route('download',$data->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-download-alt"></i> Telecharger</a> </td>
-                            </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="col-lg-12"></div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                </div>
-              </div>
-        </div>
-    </section> --}}
 
     <section class="content">
         <div class="container-fluid">
@@ -89,16 +45,13 @@
 
                   <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                      <b>Département </b> <a class="float-right">{{ strtoupper($data->service->departement->nom) }}</a>
-                    </li>
-                    <li class="list-group-item">
                       <b>Service </b> <a class="float-right">{{ strtoupper($data->service->nom) }}</a>
                     </li>
                     <li class="list-group-item">
                       <b>Documents Archivés</b> <a class="float-right">{{ $doc }}</a>
                     </li>
                   </ul>
-                  @if ($users->id == $data->user_id || ($users->personne->service->departement_id == 1 && ($users->personne->role_id == 1 || $users->personne->role_id == 2)))
+                  @if ($users->id == $data->user_id || $users->personne->role_id == 1 )
                     <a href="{{ route('personnes.edit',$data->id) }}" class="btn btn-primary btn-block"><b>Modifier Mon Profil</b></a>
                     <a href="#" class="btn btn-warning btn-block"><b>Modifier Mon Mot de Passe</b></a>
                   @endif
@@ -136,18 +89,6 @@
                               </div>
                               <!-- /.info-box -->
                             </div>
-                            {{-- <div class="col-md-4">
-                              <div class="info-box">
-                                <span class="info-box-icon bg-purple"><i class="fa fa-university"></i></span>
-
-                                <div class="info-box-content">
-                                  <span class="info-box-text">Dans le Département</span>
-                                  <span class="info-box-number">410</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                            </div> --}}
                             <div class="col-md-6">
                               <div class="info-box">
                                 <span class="info-box-icon bg-warning"><i class="fa fa-home"></i></span>
@@ -174,11 +115,6 @@
                                      data-fgColor="#28a745">
                               <div class="text-dark">{{ $ens }}% dans l'Appli</div>
                             </div>
-                            {{-- <div class="col-4 text-center">
-                              <input type="text" class="knob" data-readonly="true" value="10" data-width="100" data-height="100"
-                                     data-fgColor="#605ca8">
-                              <div class="text-dark">10% dans le Departement</div>
-                            </div> --}}
                             <div class="col-6 text-center">
                               <input type="text" class="knob" data-readonly="true" value="{{ $ser }}" data-width="100" data-height="100"
                                      data-fgColor="#ffc107">

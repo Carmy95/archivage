@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Personnelles</h1>
+            <h1 class="m-0">Personnels</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href=" {{route('dashboard')}} ">Acceuil</a></li>
-              <li class="breadcrumb-item active">Personnelles</li>
+              <li class="breadcrumb-item active">Personnels</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -45,7 +45,6 @@
                       <th>#</th>
                       <th>Nom</th>
                       <th>Prénoms</th>
-                      <th>Département</th>
                       <th>Service</th>
                       <th>Role</th>
                       <th colspan="3">Actions</th>
@@ -63,13 +62,12 @@
                           <td> {{ $t+=1 }} </td>
                           <td> {{ strtoupper($item->nom) }} </td>
                           <td> {{ $item->prenoms }} </td>
-                          <td><span class="badge bg-primary"> {{ $item->service->departement->nom }} </span></td>
                           <td><span class="badge bg-warning"> {{ $item->service->nom }} </span></td>
                           <td><span class="badge bg-danger"> {{ $item->role->libelle }} </span></td>
                           <td>
                             <a href="{{ route('personnes.show', $item->id) }}" class="btn btn-success" title="Details"><i class="nav-icon fas fa-eye"></i></a>
                           </td>
-                          @if ($users->personne->service->departement_id == 1 && ($users->personne->role_id == 1 || $users->personne->role_id == 2))
+                          @if ($users->personne->role_id == 1)
                           <td>
                              <a href="{{ route('personnes.edit', $item->id) }}" class="btn btn-primary" title="Modifier"><i class="nav-icon fas fa-edit"></i></a>
                           </td>

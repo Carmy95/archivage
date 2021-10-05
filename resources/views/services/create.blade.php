@@ -38,20 +38,6 @@
                     <input type="text" class="form-control {{ $errors->first('nom','is-invalid')}} " name="nom" id="nom" placeholder="Enter le nom du service">
                     {!! $errors->first('nom', '<span style="color: red">:message</span>') !!}
                   </div>
-                  <div class="form-group">
-                    <label for="departement">Departements</label>
-                    <select class="form-control" name="departement" id="departement">
-                     @if($data->isEmpty())
-                       <option>Aucune donnée disponible pour l'instant.</option>
-                     @else
-                      <option value="">Selectionner un Département</option>
-                       @foreach($data as $item)
-                        <option value=" {{$item->id}}"> {{$item->nom}}</option>
-                      @endforeach
-                     @endif
-                    </select>
-                    {!! $errors->first('departement', '<span style="color: red">:message</span>') !!}
-                  </div>
                 </div>
                 <!-- /.card-body -->
 

@@ -7,6 +7,8 @@ use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Http\Requests\ServiceRequest;
 use App\Models\User;
+use App\Models\Type;
+use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
@@ -19,7 +21,6 @@ class ServiceController extends Controller
             foreach ($tab as $value) {
                 $new = new Service();
                 $new->nom = $value;
-                $new->departement_id = 1;
                 $new->save();
             }
         }
@@ -46,8 +47,7 @@ class ServiceController extends Controller
     {
         $users = User::findOrFail(Auth::user()->id);
         $active = 'services';
-        $data = Departement::all();
-        return view('services.create',compact('users','data','active'));
+        return view('services.create',compact('users','active'));
     }
 
     /**
@@ -60,7 +60,6 @@ class ServiceController extends Controller
     {
         $data = new Service();
         $data->nom = $request->input('nom');
-        $data->departement_id = $request->input('departement');
         $data->save();
         return redirect()->route('services.index');
     }
@@ -76,7 +75,13 @@ class ServiceController extends Controller
         $users = User::findOrFail(Auth::user()->id);
         $data = Service::findOrFail($service->id);
         $active = 'services';
-        return view('services.show',compact('users','data','active'));
+        $tab = array(); $types = Type::all();
+        $t = 0;
+        foreach ($types as $value) {
+            $pdf = Document::where('type_id',$value->id)->where('service_id',$service->id)->count();
+            $tab[$t] = $pdf;$t = $t + 1;
+        }
+        return view('services.show',compact('users','data','tab','active'));
     }
 
     /**
@@ -89,9 +94,8 @@ class ServiceController extends Controller
     {
         $users = User::findOrFail(Auth::user()->id);
         $active = 'services';
-        $done = Departement::all();
         $data = Service::findOrFail($service->id);
-        return view('services.edit', compact('users','data','done','active'));
+        return view('services.edit', compact('users','data','active'));
     }
 
     /**
@@ -106,7 +110,6 @@ class ServiceController extends Controller
         $data = Service::findOrFail($service->id);
         $data->update([
             'nom' => $request->input('nom'),
-            'departement_id' => $request->input('departement'),
             ]);
         return redirect()->route('services.index');
     }

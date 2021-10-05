@@ -40,7 +40,7 @@
                         <tbody>
                             <tr>
                               <td rowspan="5"><img src="{{ asset(''.$data->couverture.'') }}" width="250" height="314" alt=""></td>
-                              <td>Departement : {{ $data->service->departement->nom }}</td>
+                              <td>{{ $data->reference }}</td>
                             </tr>
                             <tr>
                               <td>Service : {{ $data->service->nom }}</td>

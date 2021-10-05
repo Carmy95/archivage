@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Personnelles </h1>
+            <h1>Personnels </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href=" {{route('dashboard')}} ">Acceuil</a></li>
-              <li class="breadcrumb-item"><a href=" {{route('personnes.index')}} ">Personnelles</a></li>
+              <li class="breadcrumb-item"><a href=" {{route('personnes.index')}} ">Personnels</a></li>
               <li class="breadcrumb-item active">Ajouter</li>
               <li class="breadcrumb-item active"><i>Etape 1/3</i></li>
             </ol>

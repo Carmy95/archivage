@@ -13,7 +13,7 @@ class RoleController extends Controller
     {
         $data = Role::all();
         if ($data->isEmpty()) {
-            $tab = ['Chef du departement','Chef du Service','Employee'];
+            $tab = ['Chef du Service','Employe'];
             foreach ($tab as $value) {
                 $new = new Role();
                 $new->libelle = $value;

@@ -44,19 +44,11 @@
             <a href="{{route('personnes.index')}}" class="nav-link {{ $active == 'users' ? 'active' : '' }} ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Personnelles
+                Personnels
               </p>
             </a>
           </li>
-          @if ($users->personne->service->departement_id == 1 && ($users->personne->role_id == 1 || $users->personne->role_id == 2))
-          <li class="nav-item">
-            <a href="{{route('departements.index')}}" class="nav-link {{ $active == 'departements' ? 'active' : '' }} ">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Departements
-              </p>
-            </a>
-          </li>
+          @if ($users->personne->service_id == 1 && $users->personne->role_id == 1)
           <li class="nav-item">
             <a href="{{route('services.index')}}" class="nav-link {{ $active == 'services' ? 'active' : '' }} ">
               <i class="nav-icon fas fa-tachometer-alt"></i>

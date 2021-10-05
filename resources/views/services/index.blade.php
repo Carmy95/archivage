@@ -47,7 +47,6 @@
                     <tr>
                       <th>#</th>
                       <th>Nom du service</th>
-                      <th>Departement</th>
                       <th colspan="3">Actions</th>
                     </tr>
                   </thead>
@@ -62,7 +61,6 @@
                         <tr>
                           <td> {{ $t+=1 }} </td>
                           <td> {{ $item->nom }} </td>
-                          <td><span class="badge bg-warning"> {{ $item->departement->nom }} </span></td>
                           <td>
                              <a href="{{ route('services.edit', $item->id) }}" class="btn btn-primary" title="Modifier"><i class="nav-icon fas fa-edit"></i></a>
                           </td>

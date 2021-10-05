@@ -25,7 +25,6 @@ class ServiceRequest extends FormRequest
     {
         return [
             'nom' => 'required',
-            'departement' => 'required',
         ];
     }
 
@@ -38,7 +37,6 @@ class ServiceRequest extends FormRequest
     {
         return [
             'nom.required' => 'Le nom du service est obligatoire pour continuer...',
-            'departement.required' => 'Vous devez obligatoirement selectionner le departement au quel le document provient...',
         ];
     }
 }

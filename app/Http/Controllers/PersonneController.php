@@ -16,6 +16,25 @@ use Illuminate\Support\Facades\Auth;
 
 class PersonneController extends Controller
 {
+    public function __construct()
+    {
+        $datas = Personne::all();
+        if ($datas->isEmpty()) {
+            $user = new User();
+            $user->connexion = 1;
+            $user->email = 'nibondeneaicha@gmail.com';
+            $user->password = Hash::make('12345678');
+            $user->save();
+            $data = new Personne();
+            $data->nom = 'Konate';
+            $data->prenoms = 'Aicha';
+            $data->service_id = 1;
+            $data->role_id = 1;
+            $data->user_id = 1;
+            $data->photo = 'dist/img/user_default.png';
+            $data->save();            
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -55,23 +74,15 @@ class PersonneController extends Controller
         $max = strlen($mdp);
         $min = rand(8,$max);
         $tab = array();
-        $data = Personne::where('role_id', $request->input('role'))->get();
+        $data = Personne::where('role_id', $request->input('role'))->where('service_id', $request->input('service'))->get();
         $dep = Service::findOrFail($request->input('service'));
         $t = 0;
-        if (($request->input('role') == 1 || $request->input('role') == 2) && $data->isNotEmpty()) {
+        if (($request->input('role') == 1 ) && $data->isNotEmpty()) {
             foreach ($data as $value) {
                 if ($request->input('role') == 1) {
-                    if ($dep->departement_id == $value->service->departement->id) {
-                        $t = $t + 1;
-                    } else {
-                        $t = $t + 0;
-                    }
+                    $t = $t + 1;
                 } else {
-                    if ($dep->id == $value->service_id) {
-                        $t = $t + 1;
-                    } else {
-                        $t = $t + 0;
-                    }
+                    $t = $t + 0;
                 }
             }
             if ($t >= 0) {
@@ -223,8 +234,7 @@ class PersonneController extends Controller
             'password' => Hash::make($request->input('password'))
         ]);
         $service = Auth::user()->personne->service->id;
-        $departement = Auth::user()->personne->service->departement->id;
-        if ($service == 1 && $departement == 1) {
+        if ($service == 1) {
             return redirect()->route('dashboard');
         } else {
             return redirect()->route('home');

@@ -29,7 +29,6 @@ Route::get('/confirme', function () {
 });
 
 Route::get('/dashboard', [homeController::class,'dashboard'])->name('dashboard')->middleware('admin');
-Route::resource('departements', DepartementController::class)->middleware('admin');
 Route::resource('services', ServiceController::class)->middleware('admin');
 Route::resource('documents', DocumentController::class)->middleware('admin');
 Route::resource('status', StatuController::class)->middleware('admin');
@@ -57,6 +56,7 @@ Route::get('/editprofil/{id}',[homeController::class, 'edit'])->name('clients.ed
 Route::post('/first/{id}',[PersonneController::class, 'firstStore'])->name('first.update');
 Route::post('/profil/{id}',[PersonneController::class, 'profil_update'])->name('clients.update_profil')->middleware('client');
 
+Route::post('/recherche',[homeController::class, 'recherche'])->name('recherche');
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

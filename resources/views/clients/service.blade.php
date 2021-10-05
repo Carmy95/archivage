@@ -14,8 +14,8 @@
 	                    <table class="table table-bordered table-hover">
 	                        <thead>
 	                            <tr>
-	                                <th style="margin: 0%">#</th>
-	                                <th>Réference</th>
+	                                <th style="margin: 0%">Réference</th>
+	                                <th>Non du document</th>
 	                                <th>date d'archivage</th>
 	                                <th>Action</th>
 	                            </tr>
@@ -30,10 +30,10 @@
                                     @foreach ($documents as $value)
                                     <tr>
                                         <td>
-                                            {{ $t = $t + 1 }}
+                                            {{ $value->reference }}
                                         </td>
                                         <td>
-                                            <h5>{{ $value->reference }}</h5>
+                                            <h5>{{ $value->nom }}</h5>
                                         </td>
 
                                         <td>

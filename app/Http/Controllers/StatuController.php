@@ -67,7 +67,7 @@ class StatuController extends Controller
      * @param  \App\Models\Statu  $statu
      * @return \Illuminate\Http\Response
      */
-    public function show(Statu $statu)
+    public function show(Statu $status)
     {
         //
     }
@@ -82,7 +82,7 @@ class StatuController extends Controller
     {
         $users = User::findOrFail(Auth::user()->id);
         $active = 'config';
-        $data = Statu::findOrFail($id);
+        $data = statu::findOrFail($id);
         return view('status.edit',compact('users','data','active'));
     }
 
@@ -93,9 +93,9 @@ class StatuController extends Controller
      * @param  \App\Models\Statu  $statu
      * @return \Illuminate\Http\Response
      */
-    public function update(StatuRequest $request, Statu $statu)
+    public function update(StatuRequest $request, statu $status)
     {
-        $data = Statu::findOrFail($statu->id);
+        $data = statu::findOrFail($statu->id);
         $data->update([
             'libelle' => $request->input('nom')
             ]);

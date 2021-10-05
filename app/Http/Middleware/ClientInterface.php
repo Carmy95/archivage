@@ -22,8 +22,7 @@ class ClientInterface
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 $service = Auth::user()->personne->service->id;
-                $departement = Auth::user()->personne->service->departement->id;
-                if ($service == 1 && $departement == 1) {
+                if ($service == 1) {
                     return redirect()->route('admin.404');
                 }
             }
